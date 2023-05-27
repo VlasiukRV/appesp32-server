@@ -1,0 +1,39 @@
+<div class="x_panel" draggable>
+    <div class="x_title" hotkey="{
+                                        'alt+x': closeForm,
+                                        'alt+s': createEntity
+                                        }">
+        <h2>Edit Entity
+            <span>{{entityEditForm.editFormName}}</span>
+        </h2>
+        <form-toolbox />
+    </div>
+
+
+    <div class="x_content">
+
+        <div class="col-sm-12" >
+
+            <button ng-click="closeForm()" class="btn btn-primary" type="button" size="sm" title="close form">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+            <button ng-click="updateForm()" class="btn btn-primary" type="button" size="sm" title="refresh form">
+                <span class="glyphicon glyphicon-refresh"></span>
+            </button>
+            <button ng-click="createEntity()" class="btn btn-primary" type="button" size="sm" title="save form">
+                <span class="glyphicon glyphicon-floppy-save"></span>
+            </button>
+
+        </div>
+
+        <form>
+            <div ng-repeat="entityfieldsrow in entityEditForm.formPropertiesPlacing track by $index">
+                <entity-edit-form-row
+                        entityfieldsrow="entityfieldsrow"
+                        entityeditform="entityEditForm">
+                </entity-edit-form-row>
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,188 @@
+<div>
+
+    <div ng-switch on="property.inputType">
+
+        <!--enum-->
+        <div ng-switch-when="enum">
+
+            <div class="form-group">
+
+                <label class="control-label">{{property.label}}:</label>
+
+                <div class="input-group">
+
+                    <select class="form-control"
+                            ng-change="propertyChanged()"
+                            ng-disabled="!property.availability"
+                            ng-model="entity[property.name]"
+                            ng-options="el for el in selectList"
+                            title="{{property.label}}">
+
+                        <option selected="" value="">--Chose {{property.label}}--</option>
+
+                    </select>
+
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary btn-default"
+                                ng-click="refreshSelectList(property, selectList)"
+                                title="refresh report"
+                                type="button">
+
+                            <span class="glyphicon glyphicon-refresh"></span>
+
+                        </button>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--select-->
+        <div ng-switch-when="select">
+
+            <div class="form-group">
+
+                <label class="control-label">{{property.label}}:</label>
+
+                <div class="input-group">
+
+                    <select class="form-control"
+                            ng-change="propertyChanged()"
+                            ng-disabled="!property.availability"
+                            ng-model="entity[property.name]"
+                            ng-options="el.representation for el in selectList track by el.id"
+                            title="{{property.label}}">
+
+                        <option selected="" value="">--Chose {{property.label}}--</option>
+
+                    </select>
+
+                    <span class="input-group-btn">
+                           <button
+                                   class="btn btn-primary"
+                                   ng-click="refreshSelectList(property, selectList)"
+                                   title="refresh report"
+                                   type="button">
+
+                               <span class="glyphicon glyphicon-refresh"></span>
+
+                           </button>
+                       </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div ng-switch-when="multiselect">
+
+            <div class="form-group">
+
+                <label class="control-label">{{property.label}}:</label>
+
+                <div class="input-group">
+
+                    <oi-select
+                            multiple
+                            ng-disabled="!property.availability"
+                            ng-model="entity[property.name]"
+                            oi-options="el.representation for el in selectList track by el.id"
+                            oi-select-options="{
+                                            closeList: false,
+                                            cleanModel: true
+                                            }"
+                            placeholder="Select">
+
+                    </oi-select>
+
+                    <span class="input-group-btn">
+                    <button
+                            class="btn btn-primary"
+                            ng-click="refreshSelectList(property, selectList)"
+                            title="refresh report"
+                            type="button">
+
+                        <span class="glyphicon glyphicon-refresh"></span>
+
+                    </button>
+                </span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--checkbox-->
+        <div ng-switch-when="checkbox">
+            <div class="form-group">
+
+                <div class="checkbox">
+                    <label>
+                        <input
+                                class="form-control"
+                                ng-model="entity[property.name]"
+                                type="checkbox"/>
+                        {{property.label}}
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+        <!--date-->
+        <div ng-switch-when="date">
+            <div class="form-group">
+                <label class="control-label">{{property.label}}:</label>
+
+                <input
+                        class="date form-control"
+                        ng-disabled="!property.availability"
+                        ng-model="entity[property.name]"
+                        sm-datepicker
+                        type="date"/>
+            </div>
+        </div>
+
+        <!--textarea-->
+        <div ng-switch-when="textarea">
+            <div class="form-group">
+                <label class="control-label">{{property.label}}:</label>
+                <textarea
+                        ng-disabled="!property.availability"
+                        ng-model="entity[property.name]"
+                        style="min-width: 100%"
+                />
+                </textarea>
+            </div>
+        </div>
+
+        <!--textarea-->
+        <div ng-switch-when="jsonEditor">
+            <div class="form-group">
+
+                <label class="control-label">{{property.label}}:</label>
+
+                <json-editor json="entity[property.name]"></json-editor>
+
+            </div>
+        </div>
+
+        <!--default-->
+        <div ng-switch-default>
+            <div class="form-group">
+                <label class="control-label">{{property.label}}:</label>
+                <input
+                        class="form-control"
+                        ng-disabled="!property.availability"
+                        ng-model="entity[property.name]"
+                        type="{{property.inputType}}"
+                />
+            </div>
+        </div>
+
+    </div>
+
+</div>

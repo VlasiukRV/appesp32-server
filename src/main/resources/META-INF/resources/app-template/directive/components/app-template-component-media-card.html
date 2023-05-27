@@ -1,0 +1,26 @@
+
+	<a class="pull-left border-aero profile_thumb">
+		<i class="fa fa-user aero"></i>
+	</a>
+	<!-- <div class="x_title"> -->
+	<span>
+		<a ng-click="editEntity(entity.id)">
+			{{entity.representation}}
+		</a>
+	</span>
+	<form-toolbox toolbox-menu="toolboxMenu"/>
+	<!-- </div> -->
+
+	<div class="media-body">
+
+		<p ng-repeat="field in fields | limitTo:options.quantityProperties track by $index">
+
+			<strong>{{field.label}}: </strong>
+			<field-value
+				entity="entity"
+				field="field">
+			</field-value>
+
+		</p>
+		
+	</div>

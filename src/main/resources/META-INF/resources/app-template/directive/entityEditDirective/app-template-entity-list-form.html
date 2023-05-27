@@ -1,0 +1,189 @@
+<div class="x_panel" draggable>
+    <div class="x_title">
+        <h2>List
+            <span>{{entityListForm.editFormName}}</span>
+        </h2>
+
+        <form-toolbox toolbox-menu="entityListForm.toolboxMenu"/>
+    </div>
+
+    <div class="x_content">
+
+        <div class="col-sm-12">
+            <button class="btn btn-primary" ng-click="closeForm()" size="sm" title="close form" type="button">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+            <button class="btn btn-primary" ng-click="updateForm()" size="sm" title="refresh report"
+                    type="button">
+                <span class="glyphicon glyphicon-refresh"></span>
+            </button>
+            <button class="btn btn-primary" ng-click="addNewEntity()" size="sm" title="refresh report"
+                    type="button">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+            <button class="btn btn-primary" ng-click="flagShowSearch = !flagShowSearch" size="sm" title="refresh report"
+                    type="button">
+                <span class="glyphicon glyphicon-filter"></span>
+            </button>
+        </div>
+
+        <div class="col-sm-12">
+            <table>
+                <tr ng-repeat="filter_element in entityListForm.filter_listProperties">
+                    <td>
+                        <entity-property
+                                entity="filter_list[filter_element.name]"
+                                property="filter_element">
+                        </entity-property>
+                    </td>
+                    <td>
+                        <button ng-click="probafilter(filter_list[filter_element.name], filter_element)"
+                                size="sm"
+                                title="close form" type="btn btn-primary">
+
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-sm-12" ng-show="flagShowSearch">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Search expression:</label>
+            <input
+                    class="form-control"
+                    ng-change="findEntity(searchEx)"
+                    ng-model="searchEx"
+                    type="text"
+            />
+
+        </div>
+
+
+        <div class="col-sm-12">
+
+            <div ng-switch on="entityListForm.listType.name">
+                
+                <div ng-switch-when="calendar">
+
+                    <calendar
+                            toolbox-menu="entityListForm.entityToolboxMenu"
+                            entity-list-form="entityListForm">
+                    </calendar>
+
+                </div>
+
+                <div ng-switch-when="tile">
+
+                    <div class="row top_tiles">
+                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12"
+                             ng-repeat="entity in entityListForm.entitiesFiltered">
+
+                            <tile
+                                entity="entity"
+                                fields="entityListForm.formProperties"
+                                options=entityListForm.listType
+                                toolbox-menu="entityListForm.entityToolboxMenu">
+                            </tile>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div ng-switch-when="panel">
+
+                    <div class="row top_tiles">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 widget widget_tally_box"
+                             ng-repeat="entity in entityListForm.entitiesFiltered">
+
+                             <panel
+                                entity="entity"
+                                fields="entityListForm.formProperties"
+                                options=entityListForm.listType
+                                toolbox-menu="entityListForm.entityToolboxMenu">
+                             </panel>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div ng-switch-when="mediaList">
+
+                    <ul class="list-unstyled top_profiles scroll-view">
+
+                        <li class="media event"
+                        ng-repeat="entity in entityListForm.entitiesFiltered">
+
+                            <media-card
+                                entity="entity"                                
+                                fields="entityListForm.formProperties"
+                                options=entityListForm.listType
+                                toolbox-menu="entityListForm.entityToolboxMenu">
+                            </media-card>
+
+                        </li>
+                        
+                    </ul>
+
+                </div>
+
+                <div ng-switch-default>
+                    
+                    <div class="table-responsive">
+
+                        <table class="table table-striped jambo_table bulk_action">
+
+                            <thead>
+                            <tr class="headings">
+                                <th class="column-title" 
+                                        ng-repeat="field in entityListForm.formProperties track by $index">
+                                    {{field.label}}
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr class="hvr-curl-top-left even pointer" ng-repeat="entity in entityListForm.entitiesFiltered">
+                                <td ng-repeat="field in entityListForm.formProperties track by $index">
+                                    <field-value
+                                        ng-click="editEntity(entity.id)"
+                                        entity="entity"
+                                        field="field">
+                                    </field-value>
+                                </td>
+                                <td>
+                                    <form-toolbox toolbox-menu="entityListForm.entityToolboxMenu"/>
+                                </td>
+                            </tr>
+
+                            <tr ng-repeat="entityEmpty in entityListForm.entitiesEmpty track by $index">
+                                <td align="center"
+                                    ng-repeat="field in entityListForm.formProperties track by $index">
+                                    <!--<img src="/img/FFFFFF-0.8.png">-->
+                                </td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <ul
+                    class="pagination" ng-change="entityListForm.eventPageChanged()"
+                    ng-model="entityListForm.currentPage"
+                    total-items="entityListForm.totalItems"
+                    uib-pagination>
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>

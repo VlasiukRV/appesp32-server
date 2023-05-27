@@ -1,0 +1,42 @@
+<div class="container">
+	<div class="row">
+	    <div class="alert alert-danger" ng-show="credentials.error">
+	        There was a problem logging in. Please try again.
+	    </div>
+	</div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+                <div class="login-panel panel panel-default" draggable>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" ng-submit="login()">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" ng-model="credentials.username" placeholder="username: admin" id="username" name="username" type="text" autofocus="">
+                                </div>
+                                                             
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus="">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input class="form-control" ng-model="credentials.password" placeholder="Password: admin" name="password" type="password" value="">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                    </label>
+                                </div>
+						        <button type="submit" class="btn btn-lg btn-success btn-block">LET'S GO</button>
+						        <button ng-click="eventAfterLogin()" class="btn" title="cancel">
+						            <span class="glyphicon glyphicon-remove-circle"></span>
+						        </button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

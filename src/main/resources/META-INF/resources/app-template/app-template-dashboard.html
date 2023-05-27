@@ -1,0 +1,72 @@
+<div ng-controller="dashboard" class="x_panel">
+
+    <div class="columns is-multiline">
+
+        <div class="column is-12">
+
+            <grafic-map map='canada_en'> </grafic-map>
+
+        </div>
+
+        <div class="column is-12">
+
+            <json-editor json="obj.data"></json-editor>
+
+        </div>
+
+        <div class="column is-12 buttons ">
+            <a class="button is-primary" ng-click="addNewEntity()">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+            <a class="button is-primary" ng-click="deleteEntity()">
+                <span class="glyphicon glyphicon-minus"></span>
+            </a>
+            <select id="select-list">
+                <option ng-repeat="tableValue in tableCountValue.seriesValue" >{{tableValue.valueLabel}}</option>
+            </select>            
+        </div>
+
+        <div class="column is-8">
+            <div table-value-count-echarts ng-model="tableCountValue"></div>
+        </div>
+        <div class="column is-4">
+            <div class="columns is-multiline">
+                <div class="column is-6" ng-repeat="countValue in countValueList">
+                    <value-knob-count                        
+                        count-value="countValue">
+                    </value-knob-count>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-12">
+            <div value-count-list-sparkline ng-model="countValueList"></div>
+        </div>
+
+        <div class="column is-12">
+            <div class="tile_count columns is-multiline">    
+                <value-tile-count class="column is-2"
+                    ng-repeat="countValue in countValueList"
+                    count-value="countValue">
+                </value-tile-count>
+            </div>
+        </div>
+
+        <div class="column is-12">
+            <div class="columns is-multiline">
+                <value-progres-count
+                    class="column is-4" 
+                    ng-repeat="countValue in countValueList"
+                    count-value="countValue">
+                </value-progres-count>
+            </div>
+        </div>
+
+        <div class="column is-12">
+            <a href=" http://localhost:8080/appTaskList/service/download?fileName=pdfReport5065262707367832071.pdf"
+               download="Report">Download</a>
+        </div>
+
+    </div>
+
+</div>
