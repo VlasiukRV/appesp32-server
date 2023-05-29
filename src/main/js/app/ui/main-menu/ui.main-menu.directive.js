@@ -13,7 +13,7 @@
             restrict: 'E',
             require: '',
             replace: true,
-            templateUrl: '/templates/appRoom/tasklist/directive/app-template-menu-bar.html',
+            template: require('./app-template-menu-bar.html'),
             scope: {
                 menuBar: '='
             },
@@ -28,7 +28,7 @@
             restrict: 'E',
             require: '',
             replace: true,
-            templateUrl: '/templates/appRoom/tasklist/directive/app-template-menu-collection.html',
+            template: require('./app-template-menu-collection.html'),
             scope: {
                 menuCollection: '=',
                 command: '='
@@ -44,7 +44,7 @@
             restrict: 'E',
             require: '',
             replace: true,
-            templateUrl: '/templates/appRoom/tasklist/directive/app-template-menu-item.html',
+            template: require('./app-template-menu-item.html'),
             scope: {
                 command: '='
             },
@@ -71,7 +71,7 @@
         return {
             restrict: 'E',
             require: '',
-            templateUrl: '/templates/appRoom/tasklist/directive/app-template-message-line.html',
+            template: require('./app-template-message-line.html'),
             scope: {
                 errorDescriptions: '='
             },

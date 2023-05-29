@@ -71,7 +71,7 @@
                 templateUrl: '/login'
             })
             .when('/dashboard', {
-                templateUrl: '/templates/appRoom/tasklist/app-template-dashboard.html'
+                template: require('/src/main/js/app/app-template-dashboard.html')
             })
             .when('/currentPrincipalInformation', {
                 templateUrl: '/appTaskList/currentPrincipalInformation'

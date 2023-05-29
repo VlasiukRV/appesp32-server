@@ -1,0 +1,8 @@
+require ('./app-lib/angularjs/angular.js')
+require ('./app-lib/angularjs/angular-cookies.js')
+require ('./app-lib/angularjs/angular-resource.js')
+require ('./app-lib/angularjs/angular-route.js')
+require ('./app-lib/angularjs/angular-sanitize.js')
+require ('./app-lib/angularjs/hotkeys.min.js')
+require ('./app-lib/angularjs/select-tpls.min.js')
+require ('./app-lib/angularjs/ui-bootstrap.js')

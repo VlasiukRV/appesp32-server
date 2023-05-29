@@ -37,16 +37,16 @@ angular.module('module.config',
     'metadataSet',
 
     'userInterface',
-
-    'metadataEnumSpecification_TaskState',
-
-    'metadataEntitySpecification_Farm',
-    'metadataEntitySpecification_PoultryCalendar',
-    'metadataEntitySpecification_Project',
-    'metadataEntitySpecification_User',
-    'metadataEntitySpecification_Role',
-    'metadataEntitySpecification_ServiceTask',
-    'metadataEntitySpecification_Task',
+//
+//    'metadataEnumSpecification_TaskState',
+//
+//    'metadataEntitySpecification_Farm',
+//    'metadataEntitySpecification_PoultryCalendar',
+//    'metadataEntitySpecification_Project',
+//    'metadataEntitySpecification_User',
+//    'metadataEntitySpecification_Role',
+//    'metadataEntitySpecification_ServiceTask',
+//    'metadataEntitySpecification_Task',
 
 	moduleConfig.appEnvironment
 	]
@@ -55,80 +55,80 @@ angular.module('module.config',
 // Domain model
 // 
 
-    .service('metadataEntitySpecification_PoultryCalendar', [
-        'MetadataEntitySpecification',
-        'Entity',
-        'metadataSet',
-        'fmListForm_TYPES',
-
-        moduleConfig.metadataEntitySpecification_PoultryCalendar
-        ]
-    )
-
-    .service('metadataEntitySpecification_Farm', [
-        'MetadataEntitySpecification',
-        'Entity',
-        'metadataSet',
-        'fmListForm_TYPES',
-
-        moduleConfig.metadataEntitySpecification_Farm
-        ]
-    )
-
-    .service('metadataEntitySpecification_Project', [
-        'MetadataEntitySpecification',
-        'Entity',
-        'metadataSet',
-        'fmListForm_TYPES',
-
-        moduleConfig.metadataEntitySpecification_Project
-        ]
-    )
-
-    .service('metadataEntitySpecification_User', [
-        'MetadataEntitySpecification',
-        'Entity',
-        'metadataSet',
-        'fmListForm_TYPES',
-
-        moduleConfig.metadataEntitySpecification_User
-        ]
-    )
-
-    .service('metadataEntitySpecification_Role', [
-        'MetadataEntitySpecification',
-        'Entity',
-        'metadataSet',
-        'fmListForm_TYPES',
-
-        moduleConfig.metadataEntitySpecification_Role
-        ]
-    )
-
-    .service('metadataEntitySpecification_ServiceTask', [
-        'MetadataEntitySpecification',
-        'Entity',
-        'metadataSet',
-        'fmListForm_TYPES',
-
-        moduleConfig.metadataEntitySpecification_ServiceTask
-        ]
-    )
-
-    .service('metadataEntitySpecification_Task', [
-        'MetadataEntitySpecification',
-        'Entity',
-        'metadataSet',
-        'fmListForm_TYPES',
-
-        moduleConfig.metadataEntitySpecification_Task
-        ]
-    )
-
-    .service('metadataEnumSpecification_TaskState', [
-        'Enum',
-        
-        moduleConfig.metadataEnumSpecification_TaskState
-        ]
-    )
+//    .service('metadataEntitySpecification_PoultryCalendar', [
+//        'MetadataEntitySpecification',
+//        'Entity',
+//        'metadataSet',
+//        'fmListForm_TYPES',
+//
+//        moduleConfig.metadataEntitySpecification_PoultryCalendar
+//        ]
+//    )
+//
+//    .service('metadataEntitySpecification_Farm', [
+//        'MetadataEntitySpecification',
+//        'Entity',
+//        'metadataSet',
+//        'fmListForm_TYPES',
+//
+//        moduleConfig.metadataEntitySpecification_Farm
+//        ]
+//    )
+//
+//    .service('metadataEntitySpecification_Project', [
+//        'MetadataEntitySpecification',
+//        'Entity',
+//        'metadataSet',
+//        'fmListForm_TYPES',
+//
+//        moduleConfig.metadataEntitySpecification_Project
+//        ]
+//    )
+//
+//    .service('metadataEntitySpecification_User', [
+//        'MetadataEntitySpecification',
+//        'Entity',
+//        'metadataSet',
+//        'fmListForm_TYPES',
+//
+//        moduleConfig.metadataEntitySpecification_User
+//        ]
+//    )
+//
+//    .service('metadataEntitySpecification_Role', [
+//        'MetadataEntitySpecification',
+//        'Entity',
+//        'metadataSet',
+//        'fmListForm_TYPES',
+//
+//        moduleConfig.metadataEntitySpecification_Role
+//        ]
+//    )
+//
+//    .service('metadataEntitySpecification_ServiceTask', [
+//        'MetadataEntitySpecification',
+//        'Entity',
+//        'metadataSet',
+//        'fmListForm_TYPES',
+//
+//        moduleConfig.metadataEntitySpecification_ServiceTask
+//        ]
+//    )
+//
+//    .service('metadataEntitySpecification_Task', [
+//        'MetadataEntitySpecification',
+//        'Entity',
+//        'metadataSet',
+//        'fmListForm_TYPES',
+//
+//        moduleConfig.metadataEntitySpecification_Task
+//        ]
+//    )
+//
+//    .service('metadataEnumSpecification_TaskState', [
+//        'Enum',
+//
+//        moduleConfig.metadataEnumSpecification_TaskState
+//        ]
+//    )
 ;

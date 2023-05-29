@@ -70,7 +70,7 @@
         return {
             restrict: 'E',
             require: '',
-            templateUrl: '/templates/appRoom/tasklist/directive/entityEditDirective/app-template-entity-property.html ',
+            template: require('app-template-entity-property.html'),
             scope: {
                 entity: '=',
                 property: '='
@@ -90,7 +90,7 @@
         return {
             restrict: 'E',
             require: '',
-            templateUrl: '/templates/appRoom/tasklist/directive/entityEditDirective/app-template-entity-edit-form.html ',
+            template: require('./app-template-entity-edit-form.html'),
             scope: {
                 entityEditForm: '='
             },
@@ -112,7 +112,7 @@
         return {
             restrict: 'E',
             require: '',
-            templateUrl: '/templates/appRoom/tasklist/directive/entityEditDirective/app-template-entity-edit-form-row.html ',
+            template: require('./app-template-entity-edit-form-row.html'),
             scope: {
                 entityfieldsrow: '=',
                 entityeditform: '='
@@ -124,7 +124,7 @@
         return {
             restrict: 'E',
             require: '',
-            templateUrl: '/templates/appRoom/tasklist/directive/entityEditDirective/app-template-entity-edit-form-col.html ',
+            template: require('./app-template-entity-edit-form-col.html'),
             scope: {
                 fieldplacing: '=',
                 entityeditform: '='
@@ -147,7 +147,7 @@
         return {
             restrict: 'E',
             require: '',
-            templateUrl: '/templates/appRoom/tasklist/directive/form/app-template-form-toolbox.html',
+            template: require('./app-template-form-toolbox.html'),
             scope: {
                 toolboxMenu: '=?'
             },
@@ -166,7 +166,7 @@
         return {
             restrict: 'E',
             require: '',
-            templateUrl: '/templates/appRoom/tasklist/directive/app-template-text-value.html',
+            template: require('./app-template-text-value.html'),
             scope: {
                 textValue: '=',
                 limitLength: '=?'
@@ -212,7 +212,7 @@
     formsDirective.directiveValueTileCount = function() {
         return {            
             restrict: 'E',
-            templateUrl: '/templates/appRoom/tasklist/directive/components/app-template-component-value-tile-count.html',
+            template: require('./app-template-component-value-tile-count.html'),
             scope: {
                 countValue: '='
             },
@@ -224,7 +224,7 @@
     formsDirective.directiveValueProgresCount = function() {
         return {
             restrict: 'E',
-            templateUrl: '/templates/appRoom/tasklist/directive/components/app-template-component-value-progres-count.html',
+            template: require('./app-template-component-value-progres-count.html'),
             scope: {
                 countValue: '='
             },
@@ -242,7 +242,7 @@
     formsDirective.directiveValueKnobCount = function() {
         return {
             restrict: 'E',
-            templateUrl: '/templates/appRoom/tasklist/directive/components/app-template-component-value-knob-count.html',
+            template: require('./app-template-component-value-knob-count.html'),
             scope: {
                 countValue: '='
             },
@@ -316,7 +316,7 @@
     formsDirective.directiveValueCountListSparkline = function() {
         return {
             restrict: 'A',
-            templateUrl: '/templates/appRoom/tasklist/directive/components/app-template-component-values-count-sparkline.html',
+            template: require('./app-template-component-values-count-sparkline.html'),
             require: 'ngModel',
             link: function link($scope, iElement, attrs, ngModel) {
 
@@ -354,7 +354,7 @@
     formsDirective.directiveGraficMap = function() {
         return {
             restrict: 'E',
-            templateUrl: '/templates/appRoom/tasklist/directive/components/app-template-component-grafic-map.html',
+            template: require('./app-template-component-grafic-map.html'),
             link: function link($scope, iElement) {
               $(".jqvvmap", iElement).vectorMap({
                   map: 'canada_en',
@@ -377,7 +377,7 @@
     formsDirective.directiveTableValueCountEcharts = function() {
         return {
             restrict: 'A',
-            templateUrl: '/templates/appRoom/tasklist/directive/components/app-template-component-table-values-count-echarts.html',
+            template: require('./app-template-component-table-values-count-echarts.html'),
             require: 'ngModel',
             link: function link($scope, iElement, attrs, ngModel) {
 

@@ -2,10 +2,19 @@ const path = require('path')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: './src/main/js/main.js',
+  entry: {
+    appcss: './src/main/js/sass/app.scss',
+    app: './src/main/js/main.js',
+    angularjs: './src/main/js/angularjs.js',
+    gentelella: './src/main/js/gentelella.js'
+  },
+      resolve: {
+          preferRelative: true,
+          extensions: [".js"]
+      },
   output: {
-    filename: 'app.js',
-    path: path.resolve(__dirname, 'src/main/resources/META-INF.resources/app/app.js')
+    path: path.resolve(__dirname, 'src/main/resources/META-INF/resources/app/'),
+    filename: '[name].js'
   },
     devtool: 'eval-source-map',
     module: {
@@ -22,13 +31,39 @@ module.exports = {
         },
 
         {
-                test: /\.s[ac]ss$/i,
+                test: /\.(scss|css)$/,
                 use: [
-                  MiniCssExtractPlugin.loader,
-                  'css-loader',
-                  'postcss-loader',
+                  {
+                    loader: 'file-loader',
+                    options: { outputPath: '/assets/css/',
+                                name: '[name].min.css'
+                             }
+                  },
                   'sass-loader'
                 ]
-    }],
-}
+        },
+
+      {
+        test: /\.html$/,
+        use: [
+
+
+
+            { loader: 'html-loader' }
+
+        ]
+      },
+
+      ],
+},
+
+plugins: [
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+    }),
+  ],
+
 }

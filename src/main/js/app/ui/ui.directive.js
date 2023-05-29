@@ -7,7 +7,7 @@
     if(!exp.moduleUI.directive){
         exp.moduleUI.directive = new Object(null);
     }    
-    var directive = exp.moduleUI.directive;    
+    var directive = exp.moduleUI.directive;
 
     directive.directiveElementReady = function() {
         return {
@@ -25,7 +25,7 @@
             restrict: 'E',
             require: '',
             replace: true,
-            templateUrl: '/templates/appRoom/tasklist/directive/app-template-form-login.html',
+            template: require('./app-template-form-login.html'),
             scope: {
                 eventAfterLogin: '&'
             },

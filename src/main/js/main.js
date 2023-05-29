@@ -13,14 +13,14 @@ require ('./app/config/assert/core/assert/metadataObject.js');
 require ('./app/config/assert/core/assert/principal.js');
 
 require ('./app/config/assert/appEnvironment.js');
-require ('./app/config/assert/metadataEntitySpecification_Farm.js');
-require ('./app/config/assert/metadataEntitySpecification_PoultryCalendar.js');
-require ('./app/config/assert/metadataEntitySpecification_Project.js');
-require ('./app/config/assert/metadataEntitySpecification_Role.js');
-require ('./app/config/assert/metadataEntitySpecification_ServiceTask.js');
-require ('./app/config/assert/metadataEntitySpecification_Task.js');
-require ('./app/config/assert/metadataEntitySpecification_User.js');
-require ('./app/config/assert/metadataEnumSpecification_TaskState.js');
+//require ('./app/config/assert/metadataEntitySpecification_Farm.js');
+//require ('./app/config/assert/metadataEntitySpecification_PoultryCalendar.js');
+//require ('./app/config/assert/metadataEntitySpecification_Project.js');
+//require ('./app/config/assert/metadataEntitySpecification_Role.js');
+//require ('./app/config/assert/metadataEntitySpecification_ServiceTask.js');
+//require ('./app/config/assert/metadataEntitySpecification_Task.js');
+//require ('./app/config/assert/metadataEntitySpecification_User.js');
+//require ('./app/config/assert/metadataEnumSpecification_TaskState.js');
 
 require ('./app/config/core.module.js');
 require ('./app/config/config.module.js');

@@ -8,7 +8,9 @@
     moduleConfig.appEnvironment = function (
         metadataSet,
 
-        userInterface,
+        userInterface
+/*
+        ,
 
         metadataEnumSpecification_TaskState,
 
@@ -19,6 +21,7 @@
         metadataEntitySpecification_Role,
         metadataEntitySpecification_ServiceTask,
         metadataEntitySpecification_Task
+*/
     ) {
 
         var _userInterface = userInterface;
@@ -102,14 +105,14 @@
         appEnvironment
             .setMetadataSet(metadataSet)
 
-            .addMetadataEnumSpecification(metadataEnumSpecification_TaskState)
-            .addMetadataEntitySpecification(metadataEntitySpecification_Project)
-            .addMetadataEntitySpecification(metadataEntitySpecification_User)
-            .addMetadataEntitySpecification(metadataEntitySpecification_Role)
-            .addMetadataEntitySpecification(metadataEntitySpecification_ServiceTask)
-            .addMetadataEntitySpecification(metadataEntitySpecification_Task)
-            .addMetadataEntitySpecification(metadataEntitySpecification_Farm)
-            .addMetadataEntitySpecification(metadataEntitySpecification_PoultryCalendar)
+//            .addMetadataEnumSpecification(metadataEnumSpecification_TaskState)
+//            .addMetadataEntitySpecification(metadataEntitySpecification_Project)
+//            .addMetadataEntitySpecification(metadataEntitySpecification_User)
+//            .addMetadataEntitySpecification(metadataEntitySpecification_Role)
+//            .addMetadataEntitySpecification(metadataEntitySpecification_ServiceTask)
+//            .addMetadataEntitySpecification(metadataEntitySpecification_Task)
+//            .addMetadataEntitySpecification(metadataEntitySpecification_Farm)
+//            .addMetadataEntitySpecification(metadataEntitySpecification_PoultryCalendar)
 
             .initMetadataSet();
 

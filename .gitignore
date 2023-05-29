@@ -43,3 +43,5 @@ nb-configuration.xml
 /.quarkus/cli/plugins/
 /node_modules/
 /db-postgres/
+/src/main/resources/META-INF/resources/app/angularjs.js
+/src/main/resources/META-INF/resources/app/app.js

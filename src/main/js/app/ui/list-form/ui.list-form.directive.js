@@ -12,7 +12,7 @@
         return {
             restrict: 'E',
             require: '',
-            templateUrl: '/templates/appRoom/tasklist/directive/entityEditDirective/app-template-entity-list-form.html ',
+            template: require('./app-template-entity-list-form.html'),
             scope: {
                 entityListForm: '='
             },
@@ -47,7 +47,7 @@
         return {
             restrict: 'E',
             require: '',
-            templateUrl: '/templates/appRoom/tasklist/directive/components/app-template-component-field-value.html',
+            template: require('./app-template-component-field-value.html'),
             scope: {
                 entity: '=',
                 field: '='
@@ -65,7 +65,7 @@
         return {
             restrict: 'E',
             require: '',
-            templateUrl: '/templates/appRoom/tasklist/directive/components/app-template-component-tile.html',
+            template: require('./app-template-component-tile.html'),
             scope: {
                 entity: '=',
                 fields: '=',
@@ -85,7 +85,7 @@
         return {
             restrict: 'E',
             require: '',
-            templateUrl: '/templates/appRoom/tasklist/directive/components/app-template-component-panel.html',
+            template: require('./app-template-component-panel.html'),
             scope: {
                 entity: '=',
                 fields: '=',
@@ -105,7 +105,7 @@
         return {
             restrict: 'E',
             require: '',
-            templateUrl: '/templates/appRoom/tasklist/directive/components/app-template-component-media-card.html',
+            template: require('./app-template-component-media-card.html'),
             scope: {
                 entity: '=',
                 fields: '=',
