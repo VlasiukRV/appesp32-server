@@ -16,7 +16,7 @@
                 return new User();
             },
             metadataSet: metadataSet,
-            metadataName: 'user',
+            metadataName: 'users',
             metadataRepresentation: 'User',
             metadataDescription: 'User list',
             entityField: {
@@ -25,11 +25,11 @@
                 },
                 entityField: {
 
-                    username: {
+                    name: {
                         value: '',
                         fieldDescription: {
                             inputType: 'text',
-                            label: 'username',
+                            label: 'name',
                             availability: true,
                             entityListService: null
                         }
@@ -68,7 +68,7 @@
                     representation: {
                         enumerable: true,
                         get: function () {
-                            return '' + this.username + ' (' + this.description + ') ';
+                            return '' + this.name + ' (' + this.description + ') ';
                         }
                     }
 
@@ -86,7 +86,7 @@
                 [
                     {
                         editFieldId: [
-                            [{editFieldId: 'username', fieldLength: 12}],
+                            [{editFieldId: 'name', fieldLength: 12}],
                             [{editFieldId: 'password', fieldLength: 12}],
                             [{editFieldId: 'mailAddress', fieldLength: 12}]
                         ],

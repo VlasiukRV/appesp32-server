@@ -14,11 +14,11 @@
     <link rel="stylesheet" href="/app/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/app/assets/css/bootstrap-theme.min.css">
 
-    <link rel="stylesheet" href="../../../css/hotkeys.min.css" type="text/css"/>
-    <link rel="stylesheet" href="../../../css/lib/select.min.css" type="text/css"/>
+    <link href="/app/assets/css/hotkeys.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/app/assets/css/select.min.css" rel="stylesheet" type="text/css"/>
 
     <!-- Font Awesome -->
-    <link href="../../../css/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/app/assets/css/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- APP -->
     <link href="/app/assets/css/app.min.css" type="text/css" rel="stylesheet"/>
 
@@ -36,7 +36,7 @@
 
 </head>
 
-<body class="nav-md footer_fixed">
+<body class="nav-md">
 
 <div id="p_prldr" class="app-popup">
     <div class="contpre">
@@ -47,7 +47,7 @@
     </div>
 </div>
 
-<div class="container is-fullhd body">
+<div class="container body">
     <div ng-controller="workPlaceController" class="main_container">
 
         <!-- left navigation -->
@@ -67,7 +67,7 @@
                 <div class="profile clearfix">
                     <div class="profile_pic">
                         <a href="#/currentPrincipalInformation">
-                            <img src="../img/img.jpg" alt="..." class="img-circle profile_img">
+                            <img alt="..." class="img-circle profile_img" src="/app/img/img.jpg">
                         </a>
                     </div>
                     <div class="profile_info">
@@ -96,7 +96,8 @@
                     <a data-toggle="tooltip" data-placement="top" title="Lock">
                         <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                     </a>
-                    <a ng-show="principal.authenticated" data-toggle="tooltip" data-placement="top" title="Logout" ng-click="logout()">
+                    <a data-placement="top" data-toggle="tooltip" ng-click="logout()" ng-readonly="principal.authenticated"
+                       title="Logout">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -117,7 +118,7 @@
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                                aria-expanded="false">
-                                <img src="../img/img.jpg" alt="">
+                                <img alt="" src="/app/img/img.jpg">
                                 {{principal.name}}
                                 <span class=" fa fa-angle-down"></span>
                             </a>
@@ -157,7 +158,7 @@
 
                                 <li>
                                     <a>
-                                        <span class="image"><img src="../img/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img alt="Profile Image" src="/app/img/img.jpg"/></span>
                                         <span>
                                             <span>John Smith</span>
                                             <span class="time">3 mins ago</span>
@@ -202,7 +203,7 @@
         <!-- footer content -->
         <footer>
             <div class="pull-right">
-                <p>&copy; 2017 vRoma</p>
+                <p>&copy; 2023 TSB</p>
             </div>
             <div class="clearfix"></div>
         </footer>
@@ -213,7 +214,21 @@
 
 <!-- Vendor libraries -->
 <script src="/app/bootstrap.min.js"></script>
-<script src="../../../js/lib/echarts.min.js"></script>
+
+<script src="/app/echarts.min.js"></script>
+<script src="/app/jquery.sparkline.min.js"></script>
+
+<script src="/app/bootstrap-progressbar.min.js"></script>
+<script src="/app/nprogress.js"></script>
+
+<script src="/app/moment.min.js"></script>
+<script src="/app/fullcalendar.min.js"></script>
+r
+<script src="/app/jquery.knob.min.js"></script>
+<script src="/app/jquery.vmap.min.js"></script>
+<script src="/app/maps/jquery.vmap.canada.js"></script>
+<script src="/app/jsoneditor.min.js"></script>
+
 <!-- Gentelella Theme Scripts -->
 <script src="/app/gentelella.js"></script>
 

@@ -4,73 +4,87 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import uptarget.appESP32.server.model.BaseEntityResource;
 
-import java.net.URI;
-import java.util.List;
+import java.util.Map;
 
-@Path("/api/v1.0/companies")
+@Path("/api/v1.0/entity/companies")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class CompanyResource {
+public class CompanyResource extends BaseEntityResource<Long, Company> {
 
     @Inject
-    CompanyRepository companyRepository;
+    void CompanyResource(CompanyRepository entityRepository) {
 
-    @GET
-    public List<Company> listAll() {
-        return companyRepository.listAll();
+        super.entityRepository = entityRepository;
+        super.entityURL = "/api/v1.0/entity/companies/";
+
     }
 
     @GET
+    @Transactional
+    public Map<String, Object> listAll() {
+
+        return this.getListAllObjectsJSON();
+
+    }
+
+    @GET
+    @Transactional
     @Path("/{id}")
-    public Company get(Long id) {
-        return companyRepository.findById(id);
+    public Map<String, Object> get(Long id) {
+
+        return this.getEntityAjax(id);
+
     }
 
     @POST
     @Transactional
-    public Response create(Company company) {
-        companyRepository.persist(company);
-        return Response.created(URI.create("/vehicle/" + company.getId())).build();
+    public Map<String, Object> create(Company entity) {
+
+        return this.createEntityAjax(entity);
+
     }
 
     @PUT
-    @Path("/{id}")
     @Transactional
-    public Company update(Long id, Company company) {
-        Company entity = companyRepository.findById(id);
-        if(entity == null) {
-            throw new NotFoundException();
-        }
+    @Path("/{id}")
+    public Map<String, Object> update(Long id, Company entity) {
 
-        // map all fields from the person parameter to the existing entity
-        entity.setName(company.getName());
-        entity.setDescription(company.getDescription());
+        return this.updateEntityAjax(id, entity);
 
-        return entity;
     }
 
     @DELETE
-    @Path("/{id}")
     @Transactional
-    public void delete(Long id) {
-        Company entity = companyRepository.findById(id);
-        if(entity == null) {
-            throw new NotFoundException();
-        }
-        companyRepository.delete(entity);
+    @Path("/{id}")
+    public Map<String, Object> delete(Long id) {
+
+        return this.deleteEntityAjax(id);
+
     }
 
     @GET
+    @Transactional
     @Path("/search/{name}")
-    public Company search(String name) {
-        return companyRepository.findByName(name);
+    public Map<String, Object> search(String name) {
+        return this.searchEntityAjax(name);
     }
 
     @GET
     @Path("/count")
-    public Long count() {
-        return companyRepository.count();
+    public Map<String, Object> count() {
+        return this.countEntityAjax();
     }
+
+    // map all fields from the person parameter to the existing entity
+    @Override
+    public void mapFiledFromEntityToExistingEntity(Company entity, Company existingEntity) {
+
+        super.mapFiledFromEntityToExistingEntity(entity, existingEntity);
+
+        existingEntity.setName(entity.getName());
+
+    }
+
 }

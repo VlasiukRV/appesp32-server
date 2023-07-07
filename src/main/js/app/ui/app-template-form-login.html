@@ -14,7 +14,9 @@
                         <form role="form" ng-submit="login()">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" ng-model="credentials.username" placeholder="username: admin" id="username" name="username" type="text" autofocus="">
+                                    <input autofocus="" class="form-control"
+                                           id="username" name="username" ng-model="credentials.name" placeholder="username: admin"
+                                           type="text">
                                 </div>
                                                              
                                 <div class="form-group">

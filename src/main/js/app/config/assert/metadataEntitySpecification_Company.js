@@ -5,20 +5,20 @@
     }
     var moduleConfig = exp.moduleConfig;
 
-    moduleConfig.metadataEntitySpecification_Farm = function (MetadataEntitySpecification, Entity, metadataSet, fmListForm_TYPES) {
+    moduleConfig.metadataEntitySpecification_Company = function (MetadataEntitySpecification, Entity, metadataSet, fmListForm_TYPES) {
 
-        var Farm = appUtils.Class(Entity);
+        var AppEntity = appUtils.Class(Entity);
 
         var metadataEntitySpecification = new MetadataEntitySpecification();
         metadataEntitySpecification.init({
-                entityClass: Farm,
+            entityClass: AppEntity,
                 fnGetEntityInstance: function () {
-                    return new Farm();
+                    return new AppEntity();
                 },
                 metadataSet: metadataSet,
-                metadataName: 'farm',
-                metadataRepresentation: 'farm',
-                metadataDescription: 'Farm list',
+            metadataName: 'companies',
+            metadataRepresentation: 'company',
+            metadataDescription: 'Company list',
                 entityField: {
                     objectField: {},
                     entityField: {
@@ -48,17 +48,12 @@
                 },
 
                 fmListForm: {
-                    listType: fmListForm_TYPES.tile
+                    listType: fmListForm_TYPES.table
                 },
                 entityFieldsPlacing: [
                     [
                         {editFieldId: 'id', fieldLength: 3},
-                        {
-                            editFieldId: [
-                                [{editFieldId: 'name', fieldLength: 12}]
-                            ],
-                            fieldLength: 5
-                        }
+                        {editFieldId: 'name', fieldLength: 9}
                     ],
                     [
                         {editFieldId: 'description', fieldLength: 12}

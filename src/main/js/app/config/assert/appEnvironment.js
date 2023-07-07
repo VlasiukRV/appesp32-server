@@ -7,21 +7,24 @@
 
     moduleConfig.appEnvironment = function (
         metadataSet,
-
-        userInterface
-/*
-        ,
-
-        metadataEnumSpecification_TaskState,
-
-        metadataEntitySpecification_Farm,
-        metadataEntitySpecification_PoultryCalendar,
-        metadataEntitySpecification_Project,
+        userInterface,
         metadataEntitySpecification_User,
         metadataEntitySpecification_Role,
-        metadataEntitySpecification_ServiceTask,
-        metadataEntitySpecification_Task
-*/
+        metadataEntitySpecification_Company,
+        metadataEntitySpecification_Sensor
+
+        /*
+                ,
+
+                metadataEnumSpecification_TaskState,
+
+                metadataEntitySpecification_Farm,
+                metadataEntitySpecification_PoultryCalendar,
+                metadataEntitySpecification_Project,
+,
+                metadataEntitySpecification_ServiceTask,
+                metadataEntitySpecification_Task
+        */
     ) {
 
         var _userInterface = userInterface;
@@ -50,30 +53,30 @@
                 for (i = 0; i < this.metadataSpecifications.entities.length; i++) {
                     var metadataEntitySpecification = this.metadataSpecifications.entities[i];
                     this.metadataSet.installMetadataObjectEntity(metadataEntitySpecification);
-                    this.registeredController(metadataEntitySpecification);
+                    //this.registeredController(metadataEntitySpecification);
                 }
 
                 return this;
             },
 
-            addMetadataEntitySpecification: function(metadataEntitySpecification) {
+            addMetadataEntitySpecification: function (metadataEntitySpecification) {
                 this.metadataSpecifications.entities.push(metadataEntitySpecification);
 
                 return this;
             },
-            addMetadataEnumSpecification: function(metadataEnumSpecification) {
+            addMetadataEnumSpecification: function (metadataEnumSpecification) {
                 this.metadataSpecifications.enums.push(metadataEnumSpecification);
 
                 return this;
             },
 
-            registeredController: function(metadataEntitySpecification) {
+            registeredController: function (metadataEntitySpecification) {
 
                 var metadataName = metadataEntitySpecification.metadataName;
 
                 appController[metadataName + 'Controller'] = function ($scope) {
-                    $scope.showEditForm = false;
-                    $scope.showListForm = true;
+                    //$scope.showEditForm = false;
+                    //$scope.showListForm = true;
 
                     $scope.openEditForm = function () {
                     };
@@ -105,14 +108,15 @@
         appEnvironment
             .setMetadataSet(metadataSet)
 
-//            .addMetadataEnumSpecification(metadataEnumSpecification_TaskState)
-//            .addMetadataEntitySpecification(metadataEntitySpecification_Project)
-//            .addMetadataEntitySpecification(metadataEntitySpecification_User)
-//            .addMetadataEntitySpecification(metadataEntitySpecification_Role)
-//            .addMetadataEntitySpecification(metadataEntitySpecification_ServiceTask)
-//            .addMetadataEntitySpecification(metadataEntitySpecification_Task)
-//            .addMetadataEntitySpecification(metadataEntitySpecification_Farm)
-//            .addMetadataEntitySpecification(metadataEntitySpecification_PoultryCalendar)
+            //            .addMetadataEnumSpecification(metadataEnumSpecification_TaskState)
+            //            .addMetadataEntitySpecification(metadataEntitySpecification_Project)
+            .addMetadataEntitySpecification(metadataEntitySpecification_User)
+            .addMetadataEntitySpecification(metadataEntitySpecification_Role)
+            //            .addMetadataEntitySpecification(metadataEntitySpecification_ServiceTask)
+            //            .addMetadataEntitySpecification(metadataEntitySpecification_Task)
+            .addMetadataEntitySpecification(metadataEntitySpecification_Company)
+            .addMetadataEntitySpecification(metadataEntitySpecification_Sensor)
+            //            .addMetadataEntitySpecification(metadataEntitySpecification_PoultryCalendar)
 
             .initMetadataSet();
 

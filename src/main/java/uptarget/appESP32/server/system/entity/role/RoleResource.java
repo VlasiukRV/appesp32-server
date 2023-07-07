@@ -3,67 +3,93 @@ package uptarget.appESP32.server.system.entity.role;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.MediaType;
+import uptarget.appESP32.server.model.BaseEntityResource;
 
+import java.util.Map;
 
-import java.net.URI;
-import java.util.List;
-
-@Path("/api/v1.0/system/roles")
-public class RoleResource {
+@Path("/api/v1.0/entity/roles")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public class RoleResource extends BaseEntityResource<Long, Role> {
 
     @Inject
-    RoleRepository roleRepository;
+    void RoleResource(RoleRepository entityRepository) {
 
-    @GET
-    public List<Role> listAll() {
-        return roleRepository.listAll();
+        super.entityRepository = entityRepository;
+        super.entityURL = "/api/v1.0/entity/roles/";
+
     }
 
+    @Transactional
+    @GET
+    public Map<String, Object> listAll() {
+
+        return this.getListAllObjectsJSON();
+
+    }
+
+    @Transactional
     @GET
     @Path("/{id}")
-    public Role get(Long id) {
-        return roleRepository.findById(id);
+    public Map<String, Object> get(Long id) {
+
+        return this.getEntityAjax(id);
+
     }
 
-    @POST
     @Transactional
-    public Response create(Role role) {
-        roleRepository.persist(role);
-        return Response.created(URI.create("/fruit/" + role.getId())).build();
+    @POST
+    public Map<String, Object> create(Role entity) {
+
+        return this.createEntityAjax(entity);
+
     }
 
+    @Transactional
     @PUT
     @Path("/{id}")
-    @Transactional
-    public Role update(Long id, Role role) {
-        Role entity = roleRepository.findById(id);
-        if(entity == null) {
-            throw new NotFoundException();
-        }
+    public Map<String, Object> update(Long id, Role entity) {
 
-        // map all fields from the person parameter to the existing entity
-        entity.setRole(role.getRole());
-        entity.setDescription(role.getDescription());
+        return this.updateEntityAjax(id, entity);
 
-        return entity;
     }
 
+    @Transactional
     @DELETE
     @Path("/{id}")
+    public Map<String, Object> delete(Long id) {
+
+        return this.deleteEntityAjax(id);
+
+    }
+
     @Transactional
-    public void delete(Long id) {
-        Role entity = roleRepository.findById(id);
-        if(entity == null) {
-            throw new NotFoundException();
-        }
-        roleRepository.delete(entity);
+    @GET
+    @Path("/search/{name}")
+    public Map<String, Object> search(String name) {
+
+        return this.searchEntityAjax(name);
+
     }
 
     @GET
     @Path("/count")
-    public Long count() {
-        return roleRepository.count();
+    public Map<String, Object> count() {
+
+        return this.countEntityAjax();
+
     }
+
+    // map all fields from the person parameter to the existing entity
+    @Override
+    public void mapFiledFromEntityToExistingEntity(Role entity, Role existingEntity) {
+
+        super.mapFiledFromEntityToExistingEntity(entity, existingEntity);
+
+        existingEntity.setName(entity.getName());
+
+    }
+
 
 }

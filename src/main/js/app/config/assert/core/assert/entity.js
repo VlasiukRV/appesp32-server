@@ -1,11 +1,11 @@
 ;
 (function (exp) {
-	if (!exp.moduleConfigSystem) {
-		exp.moduleConfigSystem = new Object(null);
-	}
-	var moduleConfigSystem = exp.moduleConfigSystem;
-	
-	moduleConfigSystem.Entity = function(resourceService){
+    if (!exp.moduleConfigSystem) {
+        exp.moduleConfigSystem = new Object(null);
+    }
+    var moduleConfigSystem = exp.moduleConfigSystem;
+
+    moduleConfigSystem.Entity = function (resourceService) {
         var Entity = appUtils.Class();
         (function () {
             Entity.prototype.includeEntityFd = function (fd, entityFd, defineFd) {
@@ -58,15 +58,13 @@
 
             };
 
-            var baseCreateEntity = function () {
-                var fCallBack = arguments[0];
-                var data = arguments[1];
+            var baseCreateEntity = function (self, data, fCallBack) {
 
                 if (data.status === 200) {
                     var originalEntity = data.data;
                     if (originalEntity) {
-                        appUtils.fillValuesProperty(originalEntity, this);
-                        fCallBack(this);
+                        appUtils.fillValuesProperty(originalEntity, self);
+                        fCallBack(self);
                     }
                 }
             };
@@ -78,28 +76,37 @@
                 },
 
                 translateToEntityJSON: function () {
-                    var replacer = this.entityFd.split(', ');
-                    return JSON.stringify(this, replacer);
+                    var self = this;
+                    var replacer = self.entityFd.split(', ');
+                    return JSON.stringify(self, replacer);
                 },
 
                 createEntity: function (fCallBack) {
-                    if (!this.metadataName) {
+                    var self = this;
+
+                    if (!self.metadataName) {
 
                     }
-                    var entityJSON = this.translateToEntityJSON();
-                    resourceService.getEntityEditService().createEntity(
-                        {entityName: this.metadataName}, entityJSON,
-                        baseCreateEntity.bind(this, fCallBack),
-                        function (httpResponse) {
-                            /*resourceService.collError(httpResponse)*/
-                        }
-                    );
+
+                    var entityJSON = self.translateToEntityJSON();
+
+                    var data = resourceService.getEntityEditService().createEntity({
+                            entityName: self.metadataName
+                        },
+                        entityJSON);
+
+                    data.$promise.then(function () {
+
+                        baseCreateEntity(self, data, fCallBack)
+
+                    });
+
                 }
 
             });
         })();
 
         return Entity;
-	}
+    }
 
 })(window);

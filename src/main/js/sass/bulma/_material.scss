@@ -1,4 +1,4 @@
-@import "../../../../node_modules/bulma/sass/utilities/all"
+@import "../../../../../node_modules/bulma/sass/utilities/_all.sass";
 
 /**
  * Material Design Form Elements for Bulma CSS Framework
@@ -52,60 +52,72 @@ margin-bottom: $mf-gap * 1.5
 display: inline-block
 margin-bottom: 0
 
-.form-help
-margin-top: $mf-spacer
-margin-left: $mf-spacer
-color: $mf-label-color
-font-size: $mf-active-font-size
+.form-help {
+  margin-top: $mf-spacer;
+  margin-left: $mf-spacer;
+  color: $mf-label-color;
+  font-size: $mf-active-font-size;
+}
 
 .checkbox-control &,
 .radio-control &,
-.control &
+.control & {
 
-  position: absolute
-    width: 100%
+  position: absolute;
+  width: 100%;
 
-      .checkbox-control &
-      position: relative
-      margin-bottom: $mf-font-size
+  . checkbox-control & {
+    position: relative;
+    margin-bottom: $mf-font-size;
+  }
 
-.radio-control &
-padding-top: $mf-spacer * 2
-margin-top: -$mf-font-size
+}
 
-.control
-// scss-lint:disable QualifyingElement, NestingDepth
-input
-height: $mf-font-size * 1.9
+.radio-control & {
+  padding-top: $mf-spacer * 2
+  margin-top: -$mf-font-size
+}
 
-textarea
-resize: none
+.control {
+  // scss-lint:disable QualifyingElement, NestingDepth
+  input {
+    height: $mf-font-size * 1.9
+  }
+}
 
-select
-  width: 100%
-    font-size: $mf-font-size
-height: $mf-font-size * 1.6
-padding: $mf-spacer $mf-spacer ($mf-spacer / 2)
-background: none
-border: none
-line-height: 1.6
-box-shadow: none
+textarea {
+  resize: none;
 
-.label
-position: absolute
-top: $mf-font-size / 4
-pointer-events: none
-padding-left: $mf-spacer
-z-index: 1
-color: $mf-label-color
-font-size: $mf-font-size
-  font-weight: normal
-    transition: all $mf-transition-speed ease
+  select {
+    width: 100%;
+    font-size: $mf-font-size;
+    height: $mf-font-size * 1.6;
+    padding: $mf-spacer $mf-spacer ($mf-spacer / 2);
+    background: none;
+    border: none;
+    line-height: 1.6;
+    box-shadow: none;
+  }
+}
 
-      .bar
-      position: relative
-      border-bottom: ($mf-font-size / 16) solid $mf-border-color
-display: block
+.label {
+  position: absolute;
+  top: $mf-font-size / 4;
+  pointer-events: none;
+  padding-left: $mf-spacer;
+  z-index: 1;
+  color: $mf-label-color;
+  font-size: $mf-font-size;
+  font-weight: normal;
+  transition: all $mf-transition-speed ease;
+
+  .bar {
+    position: relative;
+    border-bottom: ($mf-font-size / 16) solid $mf-border-color;
+    display: block;
+  }
+
+}
 
 &::before
 content: ''
@@ -119,24 +131,27 @@ position: absolute
       z-index: 2
 
 input,
-textarea
-display: block
-background: none
-padding: $mf-spacer $mf-spacer ($mf-spacer / 2)
-font-size: $mf-font-size
-border-width: 0
-border-color: transparent
-  line-height: 1.9
-    width: 100%
-      color: transparent
-      transition: all $mf-transition-speed ease
-        box-shadow: none
+textarea {
+  display: block;
+  background: none;
+  padding: $mf-spacer $mf-spacer ($mf-spacer / 2);
+  font-size: $mf-font-size;
+  border-width: 0;
+  border-color: transparent;
+  line-height: 1.9;
+  width: 100%;
+  color: transparent;
+  transition: all $mf-transition-speed ease;
+  box-shadow: none;
 
-        input[type="file"]
-        line-height: 1
+  input[type="file"] {
+    line-height: 1;
+  }
+}
 
-~ .bar
-display: none
+~ .bar {
+  display: none;
+}
 
 select,
 input:focus,
@@ -146,82 +161,95 @@ input.has-value,
 textarea:focus,
 textarea:valid,
 textarea.form-file,
-textarea.has-value
-color: $mf-input-color
+textarea.has-value {
+  color: $mf-input-color;
+}
 
-~ .label
-font-size: $mf-active-font-size
-color: $mf-active-color
-top: $mf-active-top
-left: 0
+~ .label {
+  font-size: $mf-active-font-size
+  color: $mf-active-color
+  top: $mf-active-top
+  left: 0
+}
 
 select,
 input,
-textarea
+textarea {
 
-&:focus
-outline: none
+  &: focus;
+  outline: none;
+}
 
-~ .label
-color: $mf-focus-color
+~ .label {
+  color: $mf-focus-color;
+}
 
-~ .bar
+~ .bar {
 
-&::before
-  width: 100%
-    left: 0
+  &:: before;
+  width: 100%;
+  left: 0;
+}
 
 // Radio & Checkbox
 .checkbox-control,
 .radio-control
+label {
+  position: relative;
+  cursor: pointer;
+  padding-left: $mf-checkbox-gap;
+  text-align: left;
+  color: $mf-input-color;
+  display: block
+}
 
-label
-position: relative
-cursor: pointer
-padding-left: $mf-checkbox-gap
-text-align: left
-color: $mf-input-color
-display: block
+input {
+  width: auto;
+  opacity: 0.00000001;
+  position: absolute;
+  left: 0;
+}
 
-input
-width: auto
-opacity: 0.00000001
-position: absolute
-left: 0
+.radio-control {
+  margin-bottom: $mf-font-size;
+}
 
-.radio-control
-margin-bottom: $mf-font-size
+.helper {
+  position: absolute;
+  top: $mf-radio-margin;
+  left: $mf-radio-margin;
+  cursor: pointer;
+  display: block;
+  font-size: $mf-font-size;
+  user-select: none;
+  color: $mf-border-color;
 
-.helper
-position: absolute
-top: $mf-radio-margin
-left: $mf-radio-margin
-cursor: pointer
-display: block
-font-size: $mf-font-size
-user-select: none
-color: $mf-border-color
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: $mf-spacer * 2;
+    width: $mf-font-size;
+    height: $mf-font-size;
+    transition: transform $mf-transition-speed ease;
+    border-radius: 50%;
+    border: ($mf-font-size / 8) solid currentColor;
 
-&::before,
-&::after
-content: ''
-position: absolute
-left: 0
-top: 0
-margin: $mf-spacer * 2
-width: $mf-font-size
-  height: $mf-font-size
-    transition: transform $mf-transition-speed ease
-      border-radius: 50%
-        border: ($mf-font-size / 8) solid currentColor
+    &:: after {
+      transform: scale(0)
+      background-color: $mf-focus-color
+      border-color: $mf-focus-color
+    }
+  }
 
-          &::after
-          transform: scale(0)
-background-color: $mf-focus-color
-border-color: $mf-focus-color
+}
 
-label:hover .helper
-color: $mf-focus-color
+
+label:hover .helper {
+  color: $mf-focus-color;
+}
 
 // scss-lint:disable QualifyingElement, NestingDepth
 input:checked

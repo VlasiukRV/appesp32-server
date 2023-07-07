@@ -3,71 +3,92 @@ package uptarget.appESP32.server.model.sensor;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.MediaType;
+import uptarget.appESP32.server.model.BaseEntityResource;
 
-import java.net.URI;
-import java.util.List;
+import java.util.Map;
 
-@Path("/api/v1.0/sensors")
-public class SensorResource {
+@Path("/api/v1.0/entity/sensors")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public class SensorResource extends BaseEntityResource<Long, Sensor> {
 
     @Inject
-    SensorRepository sensorRepository;
+    void SensorResource(SensorRepository entityRepository) {
 
-    @GET
-    public List<Sensor> listAll() {
-        return sensorRepository.listAll();
+        super.entityRepository = entityRepository;
+        super.entityURL = "/api/v1.0/entity/companies/";
+
     }
 
     @GET
+    @Transactional
+    public Map<String, Object> listAll() {
+
+        return this.getListAllObjectsJSON();
+
+    }
+
+    @GET
+    @Transactional
     @Path("/{id}")
-    public Sensor get(Long id) {
-        return sensorRepository.findById(id);
+    public Map<String, Object> get(Long id) {
+
+        return this.getEntityAjax(id);
+
     }
 
     @POST
     @Transactional
-    public Response create(Sensor fruit) {
-        sensorRepository.persist(fruit);
-        return Response.created(URI.create("/fruit/" + fruit.getId())).build();
+    public Map<String, Object> create(Sensor entity) {
+
+        return this.createEntityAjax(entity);
+
     }
 
     @PUT
-    @Path("/{id}")
     @Transactional
-    public Sensor update(Long id, Sensor fruit) {
-        Sensor entity = sensorRepository.findById(id);
-        if(entity == null) {
-            throw new NotFoundException();
-        }
+    @Path("/{id}")
+    public Map<String, Object> update(Long id, Sensor entity) {
 
-        // map all fields from the person parameter to the existing entity
-        entity.setName(fruit.getName());
-        entity.setDescription(fruit.getDescription());
+        return this.updateEntityAjax(id, entity);
 
-        return entity;
     }
 
     @DELETE
-    @Path("/{id}")
     @Transactional
-    public void delete(Long id) {
-        Sensor entity = sensorRepository.findById(id);
-        if(entity == null) {
-            throw new NotFoundException();
-        }
-        sensorRepository.delete(entity);
+    @Path("/{id}")
+    public Map<String, Object> delete(Long id) {
+
+        return this.deleteEntityAjax(id);
+
     }
 
     @GET
+    @Transactional
     @Path("/search/{name}")
-    public Sensor search(String name) {
-        return sensorRepository.findByName(name);
+    public Map<String, Object> search(String name) {
+
+        return this.searchEntityAjax(name);
+
     }
 
     @GET
     @Path("/count")
-    public Long count() {
-        return sensorRepository.count();
+    public Map<String, Object> count() {
+
+        return this.countEntityAjax();
+
     }
+
+    // map all fields from the person parameter to the existing entity
+    @Override
+    public void mapFiledFromEntityToExistingEntity(Sensor entity, Sensor existingEntity) {
+
+        super.mapFiledFromEntityToExistingEntity(entity, existingEntity);
+
+        existingEntity.setName(entity.getName());
+
+    }
+
 }

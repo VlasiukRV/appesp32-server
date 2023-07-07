@@ -32,7 +32,7 @@
 					var principal;
 					var headers = credentials ? {
 						authorization: 'Basic '
-						+ btoa(credentials.username + ':'
+							+ btoa(credentials.name + ':'
 							+ credentials.password)
 					} : {};
 
@@ -96,7 +96,7 @@
 						setNotAuthenticated(self);
 						if (data !== undefined) {
 							this.authenticated = true;
-							this.name = data.userName;
+							this.name = data.name;
 							this.sessionId = data.sessionId;
 							this.authorities = data.authorities;
 							this.currentUserId = data.currentUserId;

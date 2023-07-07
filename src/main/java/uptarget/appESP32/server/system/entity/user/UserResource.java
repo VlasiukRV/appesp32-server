@@ -3,66 +3,93 @@ package uptarget.appESP32.server.system.entity.user;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Response;
-import uptarget.appESP32.server.system.entity.role.Role;
+import jakarta.ws.rs.core.MediaType;
+import uptarget.appESP32.server.model.BaseEntityResource;
 
-import java.net.URI;
-import java.util.List;
+import java.util.Map;
 
-@Path("/api/v1.0/system/users")
-public class UserResource {
+@Path("/api/v1.0/entity/users")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public class UserResource extends BaseEntityResource<Long, User> {
 
     @Inject
-    UserRepository userRepository;
+    void RoleResource(UserRepository entityRepository) {
 
-    @GET
-    public List<User> listAll() {
-        return userRepository.listAll();
+        super.entityRepository = entityRepository;
+        super.entityURL = "/api/v1.0/entity/users/";
+
     }
 
+    @Transactional
+    @GET
+    public Map<String, Object> listAll() {
+
+        return this.getListAllObjectsJSON();
+
+    }
+
+    @Transactional
     @GET
     @Path("/{id}")
-    public User get(Long id) {
-        return userRepository.findById(id);
+    public Map<String, Object> get(Long id) {
+
+        return this.getEntityAjax(id);
+
     }
 
-    @POST
     @Transactional
-    public Response create(User user) {
-        userRepository.persist(user);
-        return Response.created(URI.create("/fruit/" + user.getId())).build();
+    @POST
+    public Map<String, Object> create(User entity) {
+
+        return this.createEntityAjax(entity);
+
     }
 
+    @Transactional
     @PUT
     @Path("/{id}")
-    @Transactional
-    public User update(Long id, User user) {
-        User entity = userRepository.findById(id);
-        if(entity == null) {
-            throw new NotFoundException();
-        }
+    public Map<String, Object> update(Long id, User entity) {
 
-        // map all fields from the person parameter to the existing entity
-        entity.setRole(user.getRole());
-        entity.setDescription(entity.getDescription());
+        return this.updateEntityAjax(id, entity);
 
-        return entity;
     }
 
+    @Transactional
     @DELETE
     @Path("/{id}")
+    public Map<String, Object> delete(Long id) {
+
+        return this.deleteEntityAjax(id);
+
+    }
+
     @Transactional
-    public void delete(Long id) {
-        User entity = userRepository.findById(id);
-        if(entity == null) {
-            throw new NotFoundException();
-        }
-        userRepository.delete(entity);
+    @GET
+    @Path("/search/{name}")
+    public Map<String, Object> search(String name) {
+
+        return this.searchEntityAjax(name);
+
     }
 
     @GET
-    public Long count() {
-        return userRepository.count();
+    @Path("/count")
+    public Map<String, Object> count() {
+
+        return this.countEntityAjax();
+
     }
+
+    // map all fields from the person parameter to the existing entity
+    @Override
+    public void mapFiledFromEntityToExistingEntity(User entity, User existingEntity) {
+
+        super.mapFiledFromEntityToExistingEntity(entity, existingEntity);
+
+        existingEntity.setName(entity.getName());
+
+    }
+
 
 }

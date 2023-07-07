@@ -70,7 +70,194 @@
         return {
             restrict: 'E',
             require: '',
-            template: require('app-template-entity-property.html'),
+            template: '<div>\n' +
+                '\n' +
+                '    <div ng-switch on="property.inputType">\n' +
+                '\n' +
+                '        <!--enum-->\n' +
+                '        <div ng-switch-when="enum">\n' +
+                '\n' +
+                '            <div class="form-group">\n' +
+                '\n' +
+                '                <label class="control-label">{{property.label}}:</label>\n' +
+                '\n' +
+                '                <div class="input-group">\n' +
+                '\n' +
+                '                    <select class="form-control"\n' +
+                '                            ng-change="propertyChanged()"\n' +
+                '                            ng-disabled="!property.availability"\n' +
+                '                            ng-model="entity[property.name]"\n' +
+                '                            ng-options="el for el in selectList"\n' +
+                '                            title="{{property.label}}">\n' +
+                '\n' +
+                '                        <option selected="" value="">--Chose {{property.label}}--</option>\n' +
+                '\n' +
+                '                    </select>\n' +
+                '\n' +
+                '                    <span class="input-group-btn">\n' +
+                '                        <button class="btn btn-primary btn-default"\n' +
+                '                                ng-click="refreshSelectList(property, selectList)"\n' +
+                '                                title="refresh report"\n' +
+                '                                type="button">\n' +
+                '\n' +
+                '                            <span class="glyphicon glyphicon-refresh"></span>\n' +
+                '\n' +
+                '                        </button>\n' +
+                '                    </span>\n' +
+                '\n' +
+                '                </div>\n' +
+                '\n' +
+                '            </div>\n' +
+                '\n' +
+                '        </div>\n' +
+                '\n' +
+                '        <!--select-->\n' +
+                '        <div ng-switch-when="select">\n' +
+                '\n' +
+                '            <div class="form-group">\n' +
+                '\n' +
+                '                <label class="control-label">{{property.label}}:</label>\n' +
+                '\n' +
+                '                <div class="input-group">\n' +
+                '\n' +
+                '                    <select class="form-control"\n' +
+                '                            ng-change="propertyChanged()"\n' +
+                '                            ng-disabled="!property.availability"\n' +
+                '                            ng-model="entity[property.name]"\n' +
+                '                            ng-options="el.representation for el in selectList track by el.id"\n' +
+                '                            title="{{property.label}}">\n' +
+                '\n' +
+                '                        <option selected="" value="">--Chose {{property.label}}--</option>\n' +
+                '\n' +
+                '                    </select>\n' +
+                '\n' +
+                '                    <span class="input-group-btn">\n' +
+                '                           <button\n' +
+                '                                   class="btn btn-primary"\n' +
+                '                                   ng-click="refreshSelectList(property, selectList)"\n' +
+                '                                   title="refresh report"\n' +
+                '                                   type="button">\n' +
+                '\n' +
+                '                               <span class="glyphicon glyphicon-refresh"></span>\n' +
+                '\n' +
+                '                           </button>\n' +
+                '                       </span>\n' +
+                '\n' +
+                '                </div>\n' +
+                '\n' +
+                '            </div>\n' +
+                '\n' +
+                '        </div>\n' +
+                '\n' +
+                '        <div ng-switch-when="multiselect">\n' +
+                '\n' +
+                '            <div class="form-group">\n' +
+                '\n' +
+                '                <label class="control-label">{{property.label}}:</label>\n' +
+                '\n' +
+                '                <div class="input-group">\n' +
+                '\n' +
+                '                    <oi-select\n' +
+                '                            multiple\n' +
+                '                            ng-disabled="!property.availability"\n' +
+                '                            ng-model="entity[property.name]"\n' +
+                '                            oi-options="el.representation for el in selectList track by el.id"\n' +
+                '                            oi-select-options="{\n' +
+                '                                            closeList: false,\n' +
+                '                                            cleanModel: true\n' +
+                '                                            }"\n' +
+                '                            placeholder="Select">\n' +
+                '\n' +
+                '                    </oi-select>\n' +
+                '\n' +
+                '                    <span class="input-group-btn">\n' +
+                '                    <button\n' +
+                '                            class="btn btn-primary"\n' +
+                '                            ng-click="refreshSelectList(property, selectList)"\n' +
+                '                            title="refresh report"\n' +
+                '                            type="button">\n' +
+                '\n' +
+                '                        <span class="glyphicon glyphicon-refresh"></span>\n' +
+                '\n' +
+                '                    </button>\n' +
+                '                </span>\n' +
+                '                </div>\n' +
+                '\n' +
+                '            </div>\n' +
+                '\n' +
+                '        </div>\n' +
+                '\n' +
+                '        <!--checkbox-->\n' +
+                '        <div ng-switch-when="checkbox">\n' +
+                '            <div class="form-group">\n' +
+                '\n' +
+                '                <div class="checkbox">\n' +
+                '                    <label>\n' +
+                '                        <input\n' +
+                '                                class="form-control"\n' +
+                '                                ng-model="entity[property.name]"\n' +
+                '                                type="checkbox"/>\n' +
+                '                        {{property.label}}\n' +
+                '                    </label>\n' +
+                '                </div>\n' +
+                '\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '\n' +
+                '        <!--date-->\n' +
+                '        <div ng-switch-when="date">\n' +
+                '            <div class="form-group">\n' +
+                '                <label class="control-label">{{property.label}}:</label>\n' +
+                '\n' +
+                '                <input\n' +
+                '                        class="date form-control"\n' +
+                '                        ng-disabled="!property.availability"\n' +
+                '                        ng-model="entity[property.name]"\n' +
+                '                        sm-datepicker\n' +
+                '                        type="date"/>\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '\n' +
+                '        <!--textarea-->\n' +
+                '        <div ng-switch-when="textarea">\n' +
+                '            <div class="form-group">\n' +
+                '                <label class="control-label">{{property.label}}:</label>\n' +
+                '                <textarea\n' +
+                '                        ng-disabled="!property.availability"\n' +
+                '                        ng-model="entity[property.name]"\n' +
+                '                        style="min-width: 100%"\n' +
+                '                />\n' +
+                '                </textarea>\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '\n' +
+                '        <!--textarea-->\n' +
+                '        <div ng-switch-when="jsonEditor">\n' +
+                '            <div class="form-group">\n' +
+                '\n' +
+                '                <label class="control-label">{{property.label}}:</label>\n' +
+                '\n' +
+                '                <json-editor json="entity[property.name]"></json-editor>\n' +
+                '\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '\n' +
+                '        <!--default-->\n' +
+                '        <div ng-switch-default>\n' +
+                '            <div class="form-group">\n' +
+                '                <label class="control-label">{{property.label}}:</label>\n' +
+                '                <input\n' +
+                '                        class="form-control"\n' +
+                '                        ng-disabled="!property.availability"\n' +
+                '                        ng-model="entity[property.name]"\n' +
+                '                        type="{{property.inputType}}"\n' +
+                '                />\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '\n' +
+                '    </div>\n' +
+                '\n' +
+                '</div>\n',
             scope: {
                 entity: '=',
                 property: '='
@@ -90,7 +277,45 @@
         return {
             restrict: 'E',
             require: '',
-            template: require('./app-template-entity-edit-form.html'),
+            template: '<div class="x_panel" draggable>\n' +
+                '    <div class="x_title" hotkey="{\n' +
+                '                                        \'alt+x\': closeForm,\n' +
+                '                                        \'alt+s\': createEntity\n' +
+                '                                        }">\n' +
+                '        <h2>Edit Entity\n' +
+                '            <span>{{entityEditForm.editFormName}}</span>\n' +
+                '        </h2>\n' +
+                '        <form-toolbox />\n' +
+                '    </div>\n' +
+                '\n' +
+                '\n' +
+                '    <div class="x_content">\n' +
+                '\n' +
+                '        <div class="col-sm-12" >\n' +
+                '\n' +
+                '            <button ng-click="closeForm()" class="btn btn-primary" type="button" size="sm" title="close form">\n' +
+                '                <span class="glyphicon glyphicon-remove"></span>\n' +
+                '            </button>\n' +
+                '            <button ng-click="updateForm()" class="btn btn-primary" type="button" size="sm" title="refresh form">\n' +
+                '                <span class="glyphicon glyphicon-refresh"></span>\n' +
+                '            </button>\n' +
+                '            <button ng-click="createEntity()" class="btn btn-primary" type="button" size="sm" title="save form">\n' +
+                '                <span class="glyphicon glyphicon-floppy-save"></span>\n' +
+                '            </button>\n' +
+                '\n' +
+                '        </div>\n' +
+                '\n' +
+                '        <form>\n' +
+                '            <div ng-repeat="entityfieldsrow in entityEditForm.formPropertiesPlacing track by $index">\n' +
+                '                <entity-edit-form-row\n' +
+                '                        entityfieldsrow="entityfieldsrow"\n' +
+                '                        entityeditform="entityEditForm">\n' +
+                '                </entity-edit-form-row>\n' +
+                '            </div>\n' +
+                '        </form>\n' +
+                '    </div>\n' +
+                '\n' +
+                '</div>',
             scope: {
                 entityEditForm: '='
             },
@@ -112,7 +337,17 @@
         return {
             restrict: 'E',
             require: '',
-            template: require('./app-template-entity-edit-form-row.html'),
+            template: '<div class="row">\n' +
+                '    <div ng-repeat="fieldplacing in entityfieldsrow">\n' +
+                '        <div class="col-sm-{{fieldplacing.fieldLength}} col-xs-12">\n' +
+                '            <entity-edit-form-col\n' +
+                '                    fieldplacing="fieldplacing"\n' +
+                '                    entityeditform="entityeditform">\n' +
+                '            </entity-edit-form-col>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '</div>\n' +
+                '\n',
             scope: {
                 entityfieldsrow: '=',
                 entityeditform: '='
@@ -124,7 +359,10 @@
         return {
             restrict: 'E',
             require: '',
-            template: require('./app-template-entity-edit-form-col.html'),
+            template: '        <entity-property\n' +
+                '                entity="entityeditform.currentEntity"\n' +
+                '                property="entityeditform.formProperties[fieldplacing.editFieldId]">\n' +
+                '        </entity-property>',
             scope: {
                 fieldplacing: '=',
                 entityeditform: '='
@@ -147,7 +385,27 @@
         return {
             restrict: 'E',
             require: '',
-            template: require('./app-template-form-toolbox.html'),
+            template: '<span>\n' +
+                '    <ul class="nav navbar-right panel_toolbox">\n' +
+                '        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>\n' +
+                '        </li>\n' +
+                '        <li class="dropdown">\n' +
+                '            <a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown"\n' +
+                '               role="button"><i class="fa fa-wrench"></i></a>\n' +
+                '            <ul class="dropdown-menu" role="menu">\n' +
+                '                <li ng-repeat="toolboxCommand in toolboxMenu">\n' +
+                '                    <a ng-click=toolboxCommand.command(selfScope)>\n' +
+                '                        <span class="{{toolboxCommand.ico}}"></span> \n' +
+                '                        {{toolboxCommand.text}}\n' +
+                '                    </a>\n' +
+                '                </li>\n' +
+                '            </ul>\n' +
+                '        </li>\n' +
+                '        <li><a class="close-link"><i class="fa fa-close"></i></a>\n' +
+                '        </li>\n' +
+                '    </ul>\n' +
+                '    <div class="clearfix"></div>\n' +
+                '</span>',
             scope: {
                 toolboxMenu: '=?'
             },
@@ -157,7 +415,7 @@
                     $scope.toolboxMenu = {};
                 }
 
-                init_panel_toolbox(iElement);
+                gentelellaTheme.init_panel_toolbox(iElement);
             }
         };
     };
@@ -166,7 +424,19 @@
         return {
             restrict: 'E',
             require: '',
-            template: require('./app-template-text-value.html'),
+            template: '<span>\n' +
+                '    <span ng-show="textValue.length > limitLength">\n' +
+                '        {{textValue | limitTo:limitLength}}\n' +
+                '        <span tooltip-is-open="tooltipIsOpen" tooltip-placement="bottom" tooltip-popup-close-delay=\'1000\'\n' +
+                '              uib-tooltip="{{textValue}}">\n' +
+                '            ...\n' +
+                '        </span>\n' +
+                '    </span>\n' +
+                '\n' +
+                '    <span ng-show="textValue.length <= limitLength">\n' +
+                '        {{textValue}}\n' +
+                '    </span>\n' +
+                '</span>',
             scope: {
                 textValue: '=',
                 limitLength: '=?'
@@ -212,7 +482,13 @@
     formsDirective.directiveValueTileCount = function() {
         return {            
             restrict: 'E',
-            template: require('./app-template-component-value-tile-count.html'),
+            template: '\n' +
+                '\n' +
+                '\t<div class="tile_stats_count">\n' +
+                '\t\t<span class="count_top"><i class="fa fa-bookmark-o"></i> {{countValue.valueLabel}}</span>\n' +
+                '\t\t<div class="count">{{countValue.value}}</div>\n' +
+                '\t\t<!-- <span class="count_bottom"><i class="green">4% </i> From last Week</span> -->\n' +
+                '\t</div>\n',
             scope: {
                 countValue: '='
             },
@@ -224,7 +500,14 @@
     formsDirective.directiveValueProgresCount = function() {
         return {
             restrict: 'E',
-            template: require('./app-template-component-value-progres-count.html'),
+            template: '<div class="">\n' +
+                '\t<p>progress Value: {{countValue.portion}}</p>\n' +
+                '\t<div class="progress progress_sm" style="width: 76%;">\n' +
+                '\t\t<div class="progress-bar bg-green" role="progressbar" data-transitiongoal="{{countValue.portion}}">\n' +
+                '\n' +
+                '\t\t</div>\n' +
+                '\t</div>\n' +
+                '</div>',
             scope: {
                 countValue: '='
             },
@@ -242,7 +525,9 @@
     formsDirective.directiveValueKnobCount = function() {
         return {
             restrict: 'E',
-            template: require('./app-template-component-value-knob-count.html'),
+            template: '\t<input \n' +
+                '\t\tclass="knob"\t\t\n' +
+                '\t\tvalue="{{countValue.value}}">',
             scope: {
                 countValue: '='
             },
@@ -316,7 +601,10 @@
     formsDirective.directiveValueCountListSparkline = function() {
         return {
             restrict: 'A',
-            template: require('./app-template-component-values-count-sparkline.html'),
+            template: '\t\n' +
+                '<span class="sparkline" style="height: 160px; padding: 10px 25px;">\n' +
+                '\t<canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>\n' +
+                '</span>',
             require: 'ngModel',
             link: function link($scope, iElement, attrs, ngModel) {
 
@@ -354,7 +642,8 @@
     formsDirective.directiveGraficMap = function() {
         return {
             restrict: 'E',
-            template: require('./app-template-component-grafic-map.html'),
+            template: '\n' +
+                '<div class="jqvvmap" style="width: 600px; height: 400px;"></div>',
             link: function link($scope, iElement) {
               $(".jqvvmap", iElement).vectorMap({
                   map: 'canada_en',
@@ -377,7 +666,8 @@
     formsDirective.directiveTableValueCountEcharts = function() {
         return {
             restrict: 'A',
-            template: require('./app-template-component-table-values-count-echarts.html'),
+            template: '\n' +
+                '<div class="echart" style="height:350px;"></div>',
             require: 'ngModel',
             link: function link($scope, iElement, attrs, ngModel) {
 

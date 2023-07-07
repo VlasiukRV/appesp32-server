@@ -10,7 +10,7 @@ angular.module('module.config',
 .constant('appConfig', 
 	{
 		name: 'Record Keeper',
-    	appName: 'appTaskList',
+        appName: 'api/v1.0',
     	version: '0.0.1',
     	appIcon: 'fa fa-database',
     	appUrl: '/'+this.appName,
@@ -37,14 +37,15 @@ angular.module('module.config',
     'metadataSet',
 
     'userInterface',
+        'metadataEntitySpecification_User',
+        'metadataEntitySpecification_Role',
 //
 //    'metadataEnumSpecification_TaskState',
 //
-//    'metadataEntitySpecification_Farm',
+        'metadataEntitySpecification_Company',
+        'metadataEntitySpecification_Sensor',
 //    'metadataEntitySpecification_PoultryCalendar',
 //    'metadataEntitySpecification_Project',
-//    'metadataEntitySpecification_User',
-//    'metadataEntitySpecification_Role',
 //    'metadataEntitySpecification_ServiceTask',
 //    'metadataEntitySpecification_Task',
 
@@ -65,16 +66,26 @@ angular.module('module.config',
 //        ]
 //    )
 //
-//    .service('metadataEntitySpecification_Farm', [
-//        'MetadataEntitySpecification',
-//        'Entity',
-//        'metadataSet',
-//        'fmListForm_TYPES',
-//
-//        moduleConfig.metadataEntitySpecification_Farm
-//        ]
-//    )
-//
+    .service('metadataEntitySpecification_Company', [
+            'MetadataEntitySpecification',
+            'Entity',
+            'metadataSet',
+            'fmListForm_TYPES',
+
+            moduleConfig.metadataEntitySpecification_Company
+        ]
+    )
+
+    .service('metadataEntitySpecification_Sensor', [
+            'MetadataEntitySpecification',
+            'Entity',
+            'metadataSet',
+            'fmListForm_TYPES',
+
+            moduleConfig.metadataEntitySpecification_Sensor
+        ]
+    )
+
 //    .service('metadataEntitySpecification_Project', [
 //        'MetadataEntitySpecification',
 //        'Entity',
@@ -85,26 +96,26 @@ angular.module('module.config',
 //        ]
 //    )
 //
-//    .service('metadataEntitySpecification_User', [
-//        'MetadataEntitySpecification',
-//        'Entity',
-//        'metadataSet',
-//        'fmListForm_TYPES',
-//
-//        moduleConfig.metadataEntitySpecification_User
-//        ]
-//    )
-//
-//    .service('metadataEntitySpecification_Role', [
-//        'MetadataEntitySpecification',
-//        'Entity',
-//        'metadataSet',
-//        'fmListForm_TYPES',
-//
-//        moduleConfig.metadataEntitySpecification_Role
-//        ]
-//    )
-//
+    .service('metadataEntitySpecification_User', [
+            'MetadataEntitySpecification',
+            'Entity',
+            'metadataSet',
+            'fmListForm_TYPES',
+
+            moduleConfig.metadataEntitySpecification_User
+        ]
+    )
+
+    .service('metadataEntitySpecification_Role', [
+            'MetadataEntitySpecification',
+            'Entity',
+            'metadataSet',
+            'fmListForm_TYPES',
+
+            moduleConfig.metadataEntitySpecification_Role
+        ]
+    )
+
 //    .service('metadataEntitySpecification_ServiceTask', [
 //        'MetadataEntitySpecification',
 //        'Entity',

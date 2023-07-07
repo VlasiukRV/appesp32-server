@@ -164,7 +164,7 @@
     	command.commandName = commandName;
     	command.text = entitySpecification.metadataRepresentation;
         command.icon = 'fa fa-folder-o';
-    	command.command = commandName;
+        command.command = '/entity/' + commandName;
 
     	return command;
     };

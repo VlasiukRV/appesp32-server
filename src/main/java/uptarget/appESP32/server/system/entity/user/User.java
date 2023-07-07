@@ -1,25 +1,30 @@
 package uptarget.appESP32.server.system.entity.user;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import uptarget.appESP32.server.model.BaseEntity;
 import uptarget.appESP32.server.model.company.Company;
-import uptarget.appESP32.server.system.entity.BaseEntity;
 import uptarget.appESP32.server.system.entity.role.Role;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name="users")
-
 @NoArgsConstructor
 public class User extends BaseEntity<Long> {
 
     @JsonProperty
-    private @Getter @Setter String username;
+    private @Getter
+    @Setter String name;
     @JsonProperty
     private @Getter String password;
     @Column(name = "mailadress")
@@ -29,18 +34,19 @@ public class User extends BaseEntity<Long> {
     @JsonProperty
     private @Getter @Setter Boolean enabled;
 
-    //@JsonIgnore
+    @JsonIgnore
     @ManyToMany(mappedBy="users")
-    private @Getter @Setter List<Role> role = new ArrayList<>();
+    private @Getter
+    @Setter Set<Role> role = new HashSet<>();
 
-    //@JsonIgnore
+    @JsonIgnore
     @ManyToMany(mappedBy="users")
     private @Getter @Setter List<Company> company = new ArrayList<>();
 
-    public User(String username, String password) {
+    public User(String name, String password) {
         super();
 
-        this.username = username;
+        this.name = name;
         this.password = password;
     }
 

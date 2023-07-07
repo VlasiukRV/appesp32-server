@@ -25,12 +25,53 @@
             restrict: 'E',
             require: '',
             replace: true,
-            template: require('./app-template-form-login.html'),
+            template: '<div class="container">\n' +
+                '\t<div class="row">\n' +
+                '\t    <div class="alert alert-danger" ng-show="credentials.error">\n' +
+                '\t        There was a problem logging in. Please try again.\n' +
+                '\t    </div>\n' +
+                '\t</div>\n' +
+                '        <div class="row">\n' +
+                '            <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">\n' +
+                '                <div class="login-panel panel panel-default" draggable>\n' +
+                '                    <div class="panel-heading">\n' +
+                '                        <h3 class="panel-title">Please Sign In</h3>\n' +
+                '                    </div>\n' +
+                '                    <div class="panel-body">\n' +
+                '                        <form role="form" ng-submit="login()">\n' +
+                '                            <fieldset>\n' +
+                '                                <div class="form-group">\n' +
+                '                                    <input class="form-control" ng-model="credentials.name" placeholder="username: admin" id="username" name="username" type="text" autofocus="">\n' +
+                '                                </div>\n' +
+                '                                                             \n' +
+                '                                <div class="form-group">\n' +
+                '                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus="">\n' +
+                '                                </div>\n' +
+                '                                \n' +
+                '                                <div class="form-group">\n' +
+                '                                    <input class="form-control" ng-model="credentials.password" placeholder="Password: admin" name="password" type="password" value="">\n' +
+                '                                </div>\n' +
+                '                                <div class="checkbox">\n' +
+                '                                    <label>\n' +
+                '                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me\n' +
+                '                                    </label>\n' +
+                '                                </div>\n' +
+                '\t\t\t\t\t\t        <button type="submit" class="btn btn-lg btn-success btn-block">LET\'S GO</button>\n' +
+                '\t\t\t\t\t\t        <button ng-click="eventAfterLogin()" class="btn" title="cancel">\n' +
+                '\t\t\t\t\t\t            <span class="glyphicon glyphicon-remove-circle"></span>\n' +
+                '\t\t\t\t\t\t        </button>\n' +
+                '                            </fieldset>\n' +
+                '                        </form>\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '</div>',
             scope: {
                 eventAfterLogin: '&'
             },
             controller: ['$location', '$http', '$rootScope', '$scope', 'dataStorage', function ($location, $http, $rootScope, $scope, dataStorage) {
-                $scope.credentials = {username: 'admin', password: 'admin'};
+                $scope.credentials = {name: 'admin', password: 'admin'};
                 $scope.login = function () {
                     var appMetadataSet = dataStorage.getAppMetadataSet();
                     if (!appMetadataSet) {

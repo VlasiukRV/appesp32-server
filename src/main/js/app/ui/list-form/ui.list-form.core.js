@@ -9,8 +9,8 @@
     }
 
     var forms = exp.appService.forms;
-    
-    forms.ListEntityController = function ($scope, dataStorage, EntityListForm) {
+
+    forms.ListEntityController = function ($scope, $location, dataStorage, EntityListForm) {
         this.appMetadataSet = dataStorage.getAppMetadataSet();
         this.numPerpage = 10;
 
@@ -63,7 +63,8 @@
         };
 
         this.addNewEntity = function () {
-            this.openEditForm(this.appMetadataSet.getEntityList(this.metadataName).metadataObject.getEntityInstance());
+            //this.openEditForm(this.appMetadataSet.getEntityList(this.metadataName).metadataObject.getEntityInstance());
+            $location.path('/entity/' + this.metadataName + '/create', false);
         };
 
         this.editEntity = function (id) {
@@ -77,8 +78,10 @@
 
         this.deleteEntity = function (id) {
             var self = this;
-            this.appMetadataSet.getEntityList(this.metadataName).deleteEntity(id, function () {
-                self.updateViewEntityList();
+            this.appMetadataSet.getEntityList(this.metadataName).deleteEntity(id, function (entities) {
+                self.entities = entities;
+                self.totalItems = self.entities.length;
+                self.eventPageChanged();
             });
         };
 
@@ -92,7 +95,8 @@
 
         this.updateViewEntityList = function () {
             var self = this;
-            this.appMetadataSet.metadataEvents.publish("ev:entityList:" + this.metadataName + ":update", function () {
+            this.appMetadataSet.metadataEvents.publish("ev:entityList:" + this.metadataName + ":update", function (entities) {
+                self.entities = entities;
                 self.totalItems = self.entities.length;
                 self.eventPageChanged();
             });
@@ -100,16 +104,17 @@
 
         this.openEditForm = function (currentEntity) {
             dataStorage.setCurrentEntityByName(this.metadataName, currentEntity);
-            this.closeListForm();
+            $location.path('/entity/' + currentEntity.metadataName + '/edit/' + currentEntity.id, false);
+            //this.closeListForm();
         };
 
         this.closeListForm = function () {
-            $scope.$parent.showListForm = false;
+            //$scope.$parent.showListForm = false;
             $scope.$parent.openEditForm();
         };
 
         this.openListForm = function () {
-            $scope.$parent.showListForm = true;
+            //$scope.$parent.showListForm = true;
             this.entityListForm.updateViewEntityList();
         };
 

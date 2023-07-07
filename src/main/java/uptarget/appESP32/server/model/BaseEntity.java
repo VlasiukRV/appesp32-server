@@ -1,4 +1,4 @@
-package uptarget.appESP32.server.system.entity;
+package uptarget.appESP32.server.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,10 +1,11 @@
 package uptarget.appESP32.server.system.entity.role;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import uptarget.appESP32.server.system.entity.BaseEntity;
+import uptarget.appESP32.server.model.BaseEntity;
 import uptarget.appESP32.server.system.entity.user.User;
 
 import java.util.HashSet;
@@ -16,19 +17,15 @@ import java.util.Set;
 public class Role extends BaseEntity<Long> {
 
     @Column
-    private @Getter @Setter String role;
+    public @Getter
+    @Setter String name;
 
-
-    @ManyToMany(
-            cascade = {
-                    CascadeType.ALL
-            },
-            fetch = FetchType.LAZY
-    )
+    @JsonProperty
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinTable(
             name="role_user_detail",
-            joinColumns = @JoinColumn( name="role_id"),
-            inverseJoinColumns = @JoinColumn( name="user_id")
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<User> users = new HashSet<>();
 

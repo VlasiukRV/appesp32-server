@@ -16,7 +16,7 @@
                 return new Role();
             },
             metadataSet: metadataSet,
-            metadataName: 'role',
+            metadataName: 'roles',
             metadataRepresentation: 'Role',
             metadataDescription: 'Role list',
             entityField: {
@@ -26,24 +26,24 @@
                 entityField: {
 
                     // entity field
-                    role: {
+                    name: {
                         value: '',
                         fieldDescription: {
                             inputType: 'text',
-                            label: 'role',
+                            label: 'name',
                             availability: true,
                             entityListService: null
                         }
                     },
                     users: {
-                        value: metadataEntitySpecification.getArrayValue(metadataSet, 'user'),
+                        value: metadataEntitySpecification.getArrayValue(metadataSet, 'users'),
                         fieldDescription: {
                             inputType: 'multiselect',
                             label: 'users',
                             availability: true,
-                            metadataEntityName: 'user',
+                            metadataEntityName: 'users',
                             entityListService: function () {
-                                return metadataSet.getEntityList('user');
+                                return metadataSet.getEntityList('users');
                             }
                         }
                     }
@@ -54,7 +54,7 @@
                     representation: {
                         enumerable: true,
                         get: function () {
-                            return '' + this.role;
+                            return '' + this.name;
                         }
                     }
 
@@ -65,7 +65,7 @@
                     {editFieldId: 'id', fieldLength: 3},
                     {
                         editFieldId: [
-                            [{editFieldId: 'role', fieldLength: 12}]
+                            [{editFieldId: 'name', fieldLength: 12}]
                         ],
                         fieldLength: 5
                     }

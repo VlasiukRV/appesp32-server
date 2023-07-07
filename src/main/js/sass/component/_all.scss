@@ -1,1 +1,7 @@
+$jse-white: #ffffff !default;
+$jse-content-color: #1a1a1a !default;
+$jse-font: arial, sans-serif !default;
+$jse-icons: "/./app/img/jsoneditor-icons.svg" !default;
+$jse-icons-url: url($jse-icons) !default;
+
 @import "jsoneditor";

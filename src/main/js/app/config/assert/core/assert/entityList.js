@@ -1,11 +1,11 @@
 ;
 (function (exp) {
-	if (!exp.moduleConfigSystem) {
-		exp.moduleConfigSystem = new Object(null);
-	}
-	var moduleConfigSystem = exp.moduleConfigSystem;
+    if (!exp.moduleConfigSystem) {
+        exp.moduleConfigSystem = new Object(null);
+    }
+    var moduleConfigSystem = exp.moduleConfigSystem;
 
-	moduleConfigSystem.EntityList = function(resourceService){
+    moduleConfigSystem.EntityList = function (resourceService) {
         var EntityList = appUtils.Class();
         (function () {
             EntityList.prototype.$_buildObject = function () {
@@ -16,127 +16,144 @@
                         metadataObject: null
                     });
             };
-            var updateEnt = function (fCallBack, data) {
-                /*
-                 var fCallBack = arguments[0];
-                 var data = arguments[1];
-                 */
+            var updateEnt = function (self, data, fCallBack) {
 
                 if (data.status === 200) {
                     var originalUserList = data.data;
                     if (originalUserList) {
                         originalUserList.forEach(function (item) {
-                            var entity = this.metadataObject.getEntityInstance();
+                            var entity = self.metadataObject.getEntityInstance();
                             appUtils.fillValuesProperty(item, entity);
-                            this.addEntity(entity);
-                        }, this);
+                            self.addEntity(entity);
+                        }, self);
                     }
-                    console.log('Update ' + this.metadataObject.metadataName);
+                    console.log('Update ' + self.metadataObject.metadataName);
                 }
 
                 if (fCallBack) {
-                    fCallBack(this);
+                    fCallBack(self.list);
                 }
             };
 
-            var deleteEnt = function () {
-                var id = arguments[0];
-                var fCallBack = arguments[1];
-                var data = arguments[2];
+            var deleteEnt = function (self, data, id, fCallBack) {
 
                 if (data.status === 200) {
-                    this.list.forEach(function (item, i) {
+                    self.list.forEach(function (item, i) {
                         if (item.id === id) {
-                            this.list.splice(i, 1);
+                            self.list.splice(i, 1);
                             return true;
                         }
-                    }, this);
+                    }, self);
                 }
 
                 if (fCallBack) {
-                    fCallBack(this);
+                    fCallBack(self.list);
                 }
             };
 
             EntityList.includeMthd({
                 addEntity: function (entity) {
+
+                    var self = this;
                     var entityAdded = false;
-                    for (var index = 0; index < this.list.length; ++index) {
-                        var item = this.list[index];
+
+                    for (var index = 0; index < self.list.length; ++index) {
+                        var item = self.list[index];
                         if (item.id === entity.id) {
-                            this.list[index] = entity;
+                            self.list[index] = entity;
                             entityAdded = true;
                             return;
                         }
                     }
                     if (!entityAdded) {
-                        this.list.push(entity);
+                        self.list.push(entity);
                     }
                 },
                 findEntityById: function (id) {
-                    for (var index = 0; index < this.list.length; ++index) {
-                        var item = this.list[index];
+
+                    var self = this;
+
+                    for (var index = 0; index < self.list.length; ++index) {
+                        var item = self.list[index];
                         if (item.id === id) {
                             return item;
                         }
                     }
+
                     return undefined;
+
                 },
                 addEntityByTemplate: function (template, fCallBack) {
-                    var entity = null;
-                    if (template.isEmpty()) {
-                        entity = this.metadataObject.getEntityInstance(this.metadataName);
-                    } else {
-                        entity = this.findEntityById(template.id);
+
+                    var self = this;
+                    var entity = undefined;
+
+                    if (('id' in template)) {
+                        entity = self.findEntityById(template.id);
                     }
 
-                    var entityList = this;
+                    if (entity === undefined) {
+                        entity = self.metadataObject.getEntityInstance(self.metadataName);
+                    }
+
                     appUtils.fillValuesProperty(template, entity);
                     entity.createEntity(function (data) {
-                        entityList.addEntity(data);
+                        self.addEntity(data);
                         fCallBack();
                     });
+
                 },
                 update: function (fCallBack) {
+
                     var self = this;
                     self.list = [];
-                    resourceService.getEntityEditService()
-                        .getEntity({entityName: this.metadataName}, {},
-                        function (data) {
-                            updateEnt.call(self, fCallBack, data);
-                        },
-                        function (httpResponse) {
-                            /*resourceService.collError(httpResponse)*/
+                    var data = resourceService.getEntityEditService().getEntity({
+                        entityName: self.metadataName
+                    });
+
+                    data.$promise.then(function () {
+
+                        updateEnt(self, data, fCallBack);
+
                         }
                     );
+
                 },
                 findEntity: function (searchEx, fCallBack) {
+
                     var self = this;
                     self.list = [];
-                    resourceService.getEntityEditService()
-                        .getEntity({entityName: this.metadataName, search: searchEx}, {},
-                        function (data) {
-                            updateEnt.call(self, fCallBack, data);
-                        },
-                        function (httpResponse) {
-                            /*resourceService.collError(httpResponse)*/
-                        }
-                    );
+                    var data = resourceService.getEntityEditService().getEntity({
+                        entityName: self.metadataName,
+                        search: searchEx
+                    });
+
+                    data.$promise.then(function () {
+
+                        updateEnt(self, data, fCallBack);
+
+                    });
+
                 },
                 deleteEntity: function (id, fCallBack) {
-                    resourceService.getEntityEditService()
-                        .deleteEntity({entityName: this.metadataName, entityId: id}, {},
-                        deleteEnt.bind(this, id, fCallBack),
-                        function (httpResponse) {
-                            /*resourceService.collError(httpResponse)*/
-                        }
-                    );
+
+                    var self = this;
+                    var data = resourceService.getEntityEditService().deleteEntity({
+                        entityName: self.metadataName,
+                        entityId: id
+                    });
+
+                    data.$promise.then(function () {
+
+                        deleteEnt(self, data, id, fCallBack);
+
+                    });
                 }
 
             });
         })();
 
         return EntityList;
-	}
-	
+    }
+
 })(window);

@@ -6,12 +6,17 @@
 	var moduleConfigSystem = exp.moduleConfigSystem;
 
 
-	moduleConfigSystem.MetadataEntitySpecification = function (fmListForm_TYPES, MetadataEditField) {
+	moduleConfigSystem.MetadataEntitySpecification = function (fmListForm_TYPES, MetadataEditField, Entity) {
 
+		var AppEntity = appUtils.Class(Entity);
 		var MetadataEntitySpecification = appUtils.Class();
 
 		MetadataEntitySpecification.prototype.$_buildObject = function () {
 			this.includeFd({
+				entityClass: AppEntity,
+				fnGetEntityInstance: function () {
+					return new AppEntity();
+				},
                 metadataSet: {},
 				metadataName: '',
 				metadataRepresentation: '',

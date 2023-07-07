@@ -13,12 +13,20 @@
             restrict: 'E',
             require: '',
             replace: true,
-            template: require('./app-template-menu-bar.html'),
+            template: ' <div class="menu_section">\n' +
+                '\n' +
+                '\t<h3>{{command.text}}</h3>\n' +
+                '\t<ul class="nav side-menu">\n' +
+                '\t\t<menu-item command="command" ng-repeat="command in menuBar.commandList track by $index"></menu-item>\n' +
+                '\t</ul>\n' +
+                '\n' +
+                '</div>',
             scope: {
                 menuBar: '='
             },
             link: function (scope, element) {
-                init_sidebar_addEvent(element);
+                gentelellaTheme.init_sidebar_addEvent(element);
+                gentelellaTheme.init_menuBaton();
             }
         };
     };
@@ -28,13 +36,22 @@
             restrict: 'E',
             require: '',
             replace: true,
-            template: require('./app-template-menu-collection.html'),
+            template: '<li>\n' +
+                '    <a>\n' +
+                '\t\t<i class="{{command.icon}}"></i> \n' +
+                '\t\t{{command.text}}\n' +
+                '\t\t<span class="fa fa-chevron-down"></span>\n' +
+                '    </a>\n' +
+                '    <ul class="nav child_menu">\n' +
+                '\t\t<menu-item command="childCommand" ng-repeat="childCommand in menuCollection track by $index"></menu-item>\n' +
+                '    </ul>\n' +
+                '</li>',
             scope: {
                 menuCollection: '=',
                 command: '='
             },
             link: function (scope, element) {
-                init_sidebar_addEvent(element);
+                gentelellaTheme.init_sidebar_addEvent(element);
             }
         };
     };
@@ -44,7 +61,12 @@
             restrict: 'E',
             require: '',
             replace: true,
-            template: require('./app-template-menu-item.html'),
+            template: '    <li>\n' +
+                '        <a href = "" ng-click="commandHandler()">\n' +
+                '            <i class="{{command.icon}}"></i>\n' +
+                '            {{command.text}}\n' +
+                '        </a>\n' +
+                '    </li>',
             scope: {
                 command: '='
             },
@@ -71,7 +93,22 @@
         return {
             restrict: 'E',
             require: '',
-            template: require('./app-template-message-line.html'),
+            template: '<li ng-repeat="errorDescription in errorDescriptions.errorDescriptions track by $index">\n' +
+                '    <a>\n' +
+                '<!--        src="../img/img.jpg"-->\n' +
+                '        <span class="image"><img  alt="Profile Image"/></span>\n' +
+                '        <span>\n' +
+                '                          <span>Sysytem</span>\n' +
+                '                          <span class="time">3 mins ago</span>\n' +
+                '                        </span>\n' +
+                '        <span class="message">\n' +
+                '                        Error: {{errorDescription.statusText}}\n' +
+                '                            <button ng-click="deleteErrorDescription($index)" type="button" size="sm" title="ok">\n' +
+                '                                <span class="glyphicon glyphicon-ok-circle"></span>\n' +
+                '                            </button>\n' +
+                '                        </span>\n' +
+                '    </a>\n' +
+                '</li>\n',
             scope: {
                 errorDescriptions: '='
             },

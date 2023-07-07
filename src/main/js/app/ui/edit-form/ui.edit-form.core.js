@@ -10,59 +10,76 @@
     }
     var forms = appService.forms;
 
-    forms.EditEntityController = function ($scope, dataStorage, EntityEditForm) {
-        this.appMetadataSet = dataStorage.getAppMetadataSet();
-        this.currentEntity = dataStorage.getCurrentEntityByName(this.metadataName);
+    forms.EditEntityController = function ($scope, $location, dataStorage, EntityEditForm) {
 
-        this.initController = function () {
-            $scope.$parent.openEditForm = this.openEditForm;
-            $scope.$parent.closeEditForm = this.closeEditForm;
+        var self = this;
+        self.appMetadataSet = dataStorage.getAppMetadataSet();
+        self.currentEntity = dataStorage.getCurrentEntityByName(self.metadataName);
 
-            var metadataSpecification = this.appMetadataSet.getEntityList(this.metadataName);
+        var entityList = self.appMetadataSet.getEntityList(self.metadataName);
+        entityList.update(function () {
+
+            self.currentEntity = entityList.metadataObject.getEntityInstance();
+            if ("entityId" in self) {
+                var entity = entityList.findEntityById(self.entityId);
+                if (entity !== undefined) {
+                    appUtils.fillValuesProperty(entity, self.currentEntity);
+                }
+            }
+
+            dataStorage.setCurrentEntityByName(self.metadataName, self.currentEntity);
+            self.initController();
+            self.updateForm();
+        });
+
+
+        self.initController = function () {
+            $scope.$parent.openEditForm = self.openEditForm;
+            $scope.$parent.closeEditForm = self.closeEditForm;
+
+            var metadataSpecification = self.appMetadataSet.getEntityList(self.metadataName);
 
             var entityEditForm = new EntityEditForm();
-            entityEditForm.metadataName = this.metadataName;
-            entityEditForm.appMetadataSet = this.appMetadataSet;
+            entityEditForm.metadataName = self.metadataName;
+            entityEditForm.appMetadataSet = self.appMetadataSet;
             entityEditForm.metadataSpecification = metadataSpecification;
-            entityEditForm.editFormName = 'New ' + this.metadataName + ':';
+            entityEditForm.editFormName = 'New ' + self.metadataName + ':';
             entityEditForm.formProperties = metadataSpecification.metadataObject.fmEditForm.metadataEditFieldsSet;
             entityEditForm.formPropertiesPlacing = metadataSpecification.metadataObject.fmEditForm.metadataEditFieldsPlacing;
 
-            entityEditForm.eventCloseForm = this.closeEditForm;
-            entityEditForm.eventUpdateForm = this.updateForm;
-            entityEditForm.eventCreateEntity = this.createEntity;
+            entityEditForm.eventCloseForm = self.closeEditForm;
+            entityEditForm.eventUpdateForm = self.updateForm;
+            entityEditForm.eventCreateEntity = self.createEntity;
 
-            entityEditForm.openEditForm = this.openEditForm;
-            entityEditForm.closeEditForm = this.closeEditForm;
-            entityEditForm.updateForm = this.updateForm;
-            entityEditForm.createEntity = this.createEntity;
+            entityEditForm.openEditForm = self.openEditForm;
+            entityEditForm.closeEditForm = self.closeEditForm;
+            entityEditForm.updateForm = self.updateForm;
+            entityEditForm.createEntity = self.createEntity;
 
             $scope.entityEditForm = entityEditForm;
             $scope.$parent.entityEditForm = entityEditForm;
         };
 
-        this.updateForm = function () {
-            this.currentEntity = dataStorage.getCurrentEntityByName(this.metadataName);
+        self.updateForm = function () {
+            $scope.entityEditForm.currentEntity = dataStorage.getCurrentEntityByName(self.metadataName);
         };
 
-        this.createEntity = function (template) {
-            var entityList = this.appMetadataSet.getEntityList(this.metadataName);
-            var self = this;
+        self.createEntity = function (template) {
+            var entityList = self.appMetadataSet.getEntityList(self.metadataName);
             entityList.addEntityByTemplate(template, function () {
-                self.appMetadataSet.metadataEvents.publish('ev:entityList:' + self.metadataName + ':update', function () {
-                    self.closeEditForm();
-                });
+                self.closeEditForm();
             });
         };
 
-        this.openEditForm = function () {
-            $scope.$parent.showEditForm = true;
-            this.entityEditForm.updateForm();
+        self.openEditForm = function () {
+            //$scope.$parent.showEditForm = true;
+            self.entityEditForm.updateForm();
         };
 
-        this.closeEditForm = function () {
-            $scope.$parent.showEditForm = false;
-            $scope.$parent.openListForm();
+        self.closeEditForm = function () {
+            //$scope.$parent.showEditForm = false;
+            //$scope.$parent.openListForm();
+            $location.path('/entity/' + self.metadataName, false);
         };
 
     };
