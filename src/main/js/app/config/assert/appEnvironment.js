@@ -5,26 +5,65 @@
     }
     var moduleConfig = exp.moduleConfig;
 
+    var metadataEntitySpecificationJson_Project = {
+        metadataName: 'projects',
+        metadataRepresentation: 'Project',
+        metadataDescription: 'Project list',
+        entityField: {
+            objectField: {},
+            entityField: {
+
+                name: {
+                    value: '',
+                    fieldDescription: {
+                        inputType: 'text',
+                        label: 'name',
+                        availability: true,
+                        entityListService: null
+                    }
+                }
+
+            },
+            defineField: {
+
+                representation: {
+                    enumerable: true
+                }
+
+            }
+        },
+
+        fmListForm: {
+            listType: "table"
+        },
+
+        entityFieldsPlacing: [
+            [
+                {editFieldId: 'id', fieldLength: 3},
+                {
+                    editFieldId: [
+                        [{editFieldId: 'name', fieldLength: 12}]
+                    ],
+                    fieldLength: 5
+                }
+            ],
+            [
+                {editFieldId: 'description', fieldLength: 12}
+            ]
+        ]
+    };
+
     moduleConfig.appEnvironment = function (
+        MetadataEntitySpecification,
+        Entity,
         metadataSet,
+        fmListForm_TYPES,
         userInterface,
         metadataEntitySpecification_User,
         metadataEntitySpecification_Role,
         metadataEntitySpecification_Company,
         metadataEntitySpecification_Sensor
 
-        /*
-                ,
-
-                metadataEnumSpecification_TaskState,
-
-                metadataEntitySpecification_Farm,
-                metadataEntitySpecification_PoultryCalendar,
-                metadataEntitySpecification_Project,
-,
-                metadataEntitySpecification_ServiceTask,
-                metadataEntitySpecification_Task
-        */
     ) {
 
         var _userInterface = userInterface;
@@ -53,7 +92,6 @@
                 for (i = 0; i < this.metadataSpecifications.entities.length; i++) {
                     var metadataEntitySpecification = this.metadataSpecifications.entities[i];
                     this.metadataSet.installMetadataObjectEntity(metadataEntitySpecification);
-                    //this.registeredController(metadataEntitySpecification);
                 }
 
                 return this;
@@ -69,54 +107,44 @@
 
                 return this;
             },
+            addMetadataEnumSpecificationJSON: function (metadataEntitySpecification_Entity) {
 
-            registeredController: function (metadataEntitySpecification) {
+                var EntityClass = appUtils.Class(Entity);
 
-                var metadataName = metadataEntitySpecification.metadataName;
+                metadataEntitySpecification_Entity.entityClass = EntityClass;
+                metadataEntitySpecification_Entity.metadataSet = metadataSet;
+                if (('fmListForm' in metadataEntitySpecification_Entity)) {
+                    if (('listType' in metadataEntitySpecification_Entity.fmListForm)) {
+                        if (typeof metadataEntitySpecification_Entity.fmListForm.listType === 'string') {
+                            metadataEntitySpecification_Entity.fmListForm.listType = fmListForm_TYPES[metadataEntitySpecification_Entity.fmListForm.listType];
+                        }
 
-                appController[metadataName + 'Controller'] = function ($scope) {
-                    //$scope.showEditForm = false;
-                    //$scope.showListForm = true;
+                    }
+                }
 
-                    $scope.openEditForm = function () {
-                    };
-                    $scope.closeEditForm = function () {
-                    };
-
-                    $scope.openListForm = function () {
-                    };
-                    $scope.closeListForm = function () {
-                    };
+                metadataEntitySpecification_Entity.fnGetEntityInstance = function () {
+                    return new EntityClass;
+                };
+                metadataEntitySpecification_Entity.entityField.defineField.representation.get = function () {
+                    return '' + this.name;
                 };
 
-                appController['edit' + appUtils.ucFirst(metadataName) + 'Controller'] = function ($scope, dataStorage, EntityEditForm) {
-                    appService.forms.EditEntityController.apply(this, arguments);
-                    this.metadataName = metadataName;
-                    this.initController();
-                };
+                var metadataEntitySpecification = new MetadataEntitySpecification();
+                metadataEntitySpecification.init(metadataEntitySpecification_Entity);
 
-                appController[metadataName + 'ListController'] = function ($scope, dataStorage, EntityListForm) {
-                    appService.forms.ListEntityController.apply(this, arguments);
-                    this.metadataName = metadataName;
-                    this.initController();
-                };
-
+                this.addMetadataEntitySpecification(metadataEntitySpecification);
+                return this;
             }
-
         };
 
         appEnvironment
             .setMetadataSet(metadataSet)
+            .addMetadataEnumSpecificationJSON(metadataEntitySpecificationJson_Project)
 
-            //            .addMetadataEnumSpecification(metadataEnumSpecification_TaskState)
-            //            .addMetadataEntitySpecification(metadataEntitySpecification_Project)
             .addMetadataEntitySpecification(metadataEntitySpecification_User)
             .addMetadataEntitySpecification(metadataEntitySpecification_Role)
-            //            .addMetadataEntitySpecification(metadataEntitySpecification_ServiceTask)
-            //            .addMetadataEntitySpecification(metadataEntitySpecification_Task)
             .addMetadataEntitySpecification(metadataEntitySpecification_Company)
             .addMetadataEntitySpecification(metadataEntitySpecification_Sensor)
-            //            .addMetadataEntitySpecification(metadataEntitySpecification_PoultryCalendar)
 
             .initMetadataSet();
 

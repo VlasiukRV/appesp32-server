@@ -17,18 +17,13 @@ require ('./app/config/assert/core/assert/principal.js');
 require ('./app/config/assert/appEnvironment.js');
 require('./app/config/assert/metadataEntitySpecification_Company.js');
 require('./app/config/assert/metadataEntitySpecification_Sensor.js');
-//require ('./app/config/assert/metadataEntitySpecification_PoultryCalendar.js');
-//require ('./app/config/assert/metadataEntitySpecification_Project.js');
 require('./app/config/assert/metadataEntitySpecification_Role.js');
-//require ('./app/config/assert/metadataEntitySpecification_ServiceTask.js');
-//require ('./app/config/assert/metadataEntitySpecification_Task.js');
 require('./app/config/assert/metadataEntitySpecification_User.js');
-//require ('./app/config/assert/metadataEnumSpecification_TaskState.js');
 
 require ('./app/config/core.module.js');
 require ('./app/config/config.module.js');
 
-require ('./app/components/angular-json-editor.js');
+require('./app/components/json-editor/json-editor.module.js');
 require ('./app/components/data-analise-chart.js');
 
 require ('./app/ui/main-menu/ui.main-menu.core.js');

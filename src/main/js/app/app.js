@@ -6,7 +6,7 @@ var app = angular.module('app', [
     'oi.select',
     'cfp.hotkeys',
 
-    'angular-json-editor',
+    'json-editor',
     'data-analise-chart',
 
     'module.config',

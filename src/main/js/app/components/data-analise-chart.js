@@ -58,9 +58,51 @@ angular.module('data-analise-chart', [])
             });
 
             $scope.json = {
-                "Array": [1, 2, 3], "Boolean": true, "Null": null, "Number": 123,
-                "Object": {"a": "b", "c": "d"}, "String": "Hello World",
-                "auto": "$Hello World"
+                metadataName: 'project',
+                metadataRepresentation: 'Project',
+                metadataDescription: 'Project list',
+                entityField: {
+                    objectField: {},
+                    entityField: {
+
+                        name: {
+                            value: '',
+                            fieldDescription: {
+                                inputType: 'text',
+                                label: 'name',
+                                availability: true,
+                                entityListService: null
+                            }
+                        }
+
+                    },
+                    defineField: {
+
+                        representation: {
+                            enumerable: true
+                        }
+
+                    }
+                },
+
+                fmListForm: {
+                    listType: "table"
+                },
+
+                entityFieldsPlacing: [
+                    [
+                        {editFieldId: 'id', fieldLength: 3},
+                        {
+                            editFieldId: [
+                                [{editFieldId: 'name', fieldLength: 12}]
+                            ],
+                            fieldLength: 5
+                        }
+                    ],
+                    [
+                        {editFieldId: 'description', fieldLength: 12}
+                    ]
+                ]
             };
 
             $scope.addNewEntity = function () {
